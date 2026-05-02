@@ -1,0 +1,34 @@
+tile.candle_yellow.name=Yellow Candle 
+tile.candle_red.name=Red Candle 
+tile.stopwatch_detector.name=Stopwatch Detector
+
+item.whip_morning_star.name=Morning Star
+item.whip_savage_silver.name=Savage Silver
+item.throwable_axe.name=Axe
+item.whip_vampire_killer.name=Vampire Killer
+item.whip_holy_flail.name=Holy Flail
+item.short_knife.name=Short Knife
+item.holy_water.name=Holy Water
+item.holy_cross.name=Holy Cross
+item.bible.name=Bible
+item.coin.name=Gold Coin
+item.spider_stone.name=Spider Stone
+item.jump_stone.name=Jump Stone
+item.small_heart.name=Small Heart
+item.gryphon_stone.name=Gryphon Stone
+item.leap_stone.name=Leap Stone
+item.big_heart.name=Big Heart
+item.dash_stone.name=Serpent Stone
+item.mermaid_stone.name=Mermaid Stone
+item.heart_upgrade.name=Heart Upgrade
+item.health_upgrade.name=Health Upgrade
+item.stopwatch.name=Stopwatch
+item.creative_heart.name=Creative Heart
+item.heart_refresh.name=Heart Refresh
+item.fake_wall_wand.name=Destructible Wall Creator
+
+itemGroup.Castlevania=Castlevania
+potion.bible=Bible Effect
+
+key.dash=Activate Dash
+key.high_jump=Activate High Jump

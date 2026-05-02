@@ -1,0 +1,25 @@
+package com.zr2.castlevania.item;
+
+import com.zr2.castlevania.entity.EntityHolyWater;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+
+public class ItemHolyWater extends BasicItem {
+
+    public ItemHolyWater() {
+        super("holy_water");
+        this.setMaxStackSize(1);
+    }
+
+
+    @Override
+    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+        if (consumeHeart(player, 3)) {
+            world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            world.spawnEntityInWorld(new EntityHolyWater(world, player));
+        }
+
+        return itemStack;
+    }
+}

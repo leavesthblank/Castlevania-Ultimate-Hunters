@@ -1,0 +1,41 @@
+[
+  {
+    "modid": "castlevania",
+    "name": "Ultimate Hunters",
+    "description": "Items and weapons inspired by Castlevania.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Zr2"
+    ],
+    "credits": "OnyxDraws for the graphics and commission",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": [
+      "grapplemod-castlevania"
+    ],
+    "requiredMods": [
+      "grapplemod-castlevania"
+    ],
+    "useDependencyInformation": true
+  },
+  {
+    "modid": "grapplemod-castlevania",
+    "name": "GrappleMod - Ultimate Hunters",
+    "description": "Stripped down and modified version of yyon's grapple mod, used as a library.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Zr2",
+      "yyon"
+    ],
+    "credits": "yyon for making and uploading the source code, I copied it under GPL license.",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
