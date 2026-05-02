@@ -1,29 +1,27 @@
 package com.yyon.zr2.grapplinghook.network;
 
+import net.minecraft.world.World;
+
 import com.yyon.zr2.grapplinghook.GrappleMod;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.world.World;
-//* // 1.8 Compatability
-
+// * // 1.8 Compatability
 
 /*
  * This file is part of GrappleMod.
-
-    GrappleMod is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    GrappleMod is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with GrappleMod.  If not, see <http://www.gnu.org/licenses/>.
+ * GrappleMod is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * GrappleMod is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with GrappleMod. If not, see <http://www.gnu.org/licenses/>.
  */
 
 public class MultiHookMessage implements IMessage {
@@ -31,8 +29,7 @@ public class MultiHookMessage implements IMessage {
     public int id;
     public boolean sneaking;
 
-    public MultiHookMessage() {
-    }
+    public MultiHookMessage() {}
 
     public MultiHookMessage(int id, boolean sneaking) {
         this.id = id;
@@ -52,7 +49,9 @@ public class MultiHookMessage implements IMessage {
     }
 
     public static class Handler implements IMessageHandler<MultiHookMessage, IMessage> {
+
         public class runner implements Runnable {
+
             MultiHookMessage message;
             MessageContext ctx;
 
@@ -71,7 +70,6 @@ public class MultiHookMessage implements IMessage {
                 GrappleMod.receiveMultihookMessage(id, w, message.sneaking);
             }
         }
-
 
         @Override
         public IMessage onMessage(MultiHookMessage message, MessageContext ctx) {

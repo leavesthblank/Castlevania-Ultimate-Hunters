@@ -1,13 +1,13 @@
 package com.zr2.castlevania.entity;
 
+import javax.vecmath.Vector2d;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-
-import javax.vecmath.Vector2d;
 
 public class EntityHolyWater extends EntityThrowable {
 
@@ -38,7 +38,8 @@ public class EntityHolyWater extends EntityThrowable {
 
     @Override
     protected void onImpact(MovingObjectPosition movingObjectPosition) {
-        this.worldObj.playAuxSFX(2002, (int) Math.round(this.posX), (int) Math.round(this.posY), (int) Math.round(this.posZ), 0);
+        this.worldObj
+            .playAuxSFX(2002, (int) Math.round(this.posX), (int) Math.round(this.posY), (int) Math.round(this.posZ), 0);
         if (!worldObj.isRemote) {
             for (int x = 0; x < 6; x++) {
                 for (int y = -1; y < 2; y++) {
@@ -56,7 +57,9 @@ public class EntityHolyWater extends EntityThrowable {
     }
 
     private Vector2d mutiply(double x, double y) {
-        return new Vector2d((x * fireDirection.x) - (y * fireDirection.y), (y * fireDirection.x) + (x * fireDirection.y));
+        return new Vector2d(
+            (x * fireDirection.x) - (y * fireDirection.y),
+            (y * fireDirection.x) + (x * fireDirection.y));
     }
 
     @Override

@@ -1,12 +1,13 @@
 package com.zr2.castlevania.properties;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.network.packet.PacketIEEPSync;
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.network.packet.PacketIEEPSync;
 
 public class ExtendedPlayerBible implements IEEPSyncable {
 
@@ -32,8 +33,7 @@ public class ExtendedPlayerBible implements IEEPSyncable {
     }
 
     @Override
-    public void init(Entity entity, World world) {
-    }
+    public void init(Entity entity, World world) {}
 
     public boolean isUsingBible() {
         return bibleTick > 0;
@@ -41,7 +41,8 @@ public class ExtendedPlayerBible implements IEEPSyncable {
 
     public void useBible() {
         bibleTick = 100;
-        Castlevania.getNetChannel().sendToAll(new PacketIEEPSync(this));
+        Castlevania.getNetChannel()
+            .sendToAll(new PacketIEEPSync(this));
     }
 
     public void tick() {

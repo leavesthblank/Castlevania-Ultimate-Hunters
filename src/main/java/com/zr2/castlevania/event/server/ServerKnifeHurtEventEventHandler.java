@@ -1,8 +1,10 @@
 package com.zr2.castlevania.event.server;
 
-import com.zr2.castlevania.entity.AbstractEntityProjectile;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
+import com.zr2.castlevania.entity.AbstractEntityProjectile;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ServerKnifeHurtEventEventHandler {
 

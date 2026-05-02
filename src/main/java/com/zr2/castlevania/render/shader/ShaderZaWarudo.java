@@ -1,11 +1,13 @@
 package com.zr2.castlevania.render.shader;
 
-import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.zr2.castlevania.Castlevania;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.vecmath.Matrix4f;
+
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResourceManager;
@@ -16,23 +18,27 @@ import net.minecraft.client.shader.ShaderUniform;
 import net.minecraft.client.util.JsonException;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
-import javax.vecmath.Matrix4f;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.Lists;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.zr2.castlevania.Castlevania;
 
 public class ShaderZaWarudo extends ShaderGroup {
 
     private static final JsonElement INVERT, BLIT;
-    private static final ResourceLocation FAKE_PATH = new ResourceLocation(Castlevania.MODID, "shaders/post/zawarudo.json");
+    private static final ResourceLocation FAKE_PATH = new ResourceLocation(
+        Castlevania.MODID,
+        "shaders/post/zawarudo.json");
 
     static {
         JsonParser jsonParser = new JsonParser();
-        INVERT = jsonParser.parse("{\"name\":\"invert\",\"intarget\":\"minecraft:main\",\"outtarget\":\"swap\",\"uniforms\":[{\"name\":\"InverseAmount\",\"values\":[0.8]}]}");
+        INVERT = jsonParser.parse(
+            "{\"name\":\"invert\",\"intarget\":\"minecraft:main\",\"outtarget\":\"swap\",\"uniforms\":[{\"name\":\"InverseAmount\",\"values\":[0.8]}]}");
         BLIT = jsonParser.parse("{\"name\":\"blit\",\"intarget\":\"swap\",\"outtarget\":\"minecraft:main\"}");
     }
 
@@ -48,7 +54,8 @@ public class ShaderZaWarudo extends ShaderGroup {
     private float field_148036_j;
     private float field_148037_k;
 
-    public ShaderZaWarudo(TextureManager p_i1050_1_, IResourceManager p_i1050_2_, Framebuffer p_i1050_3_) throws JsonException {
+    public ShaderZaWarudo(TextureManager p_i1050_1_, IResourceManager p_i1050_2_, Framebuffer p_i1050_3_)
+        throws JsonException {
         super(p_i1050_1_, p_i1050_2_, p_i1050_3_, FAKE_PATH);
         this.resourceManager = p_i1050_2_;
         this.mainFramebuffer = p_i1050_3_;
@@ -62,11 +69,12 @@ public class ShaderZaWarudo extends ShaderGroup {
     }
 
     public void func_152765_a(TextureManager p_152765_1_, ResourceLocation p_152765_2_) {
-        //this.initTarget(var10); "swap"
+        // this.initTarget(var10); "swap"
         this.addFramebuffer("swap", this.mainFramebufferWidth, this.mainFramebufferHeight);
 
-        //this.func_152764_a(p_152765_1_, var10); {"name":"invert","intarget":"minecraft:main","outtarget":"swap","uniforms":[{"name":"InverseAmount","values":[0.8]}]}
-        //this.func_152764_a(p_152765_1_, var10); {"name":"blit","intarget":"swap","outtarget":"minecraft:main"}
+        // this.func_152764_a(p_152765_1_, var10);
+        // {"name":"invert","intarget":"minecraft:main","outtarget":"swap","uniforms":[{"name":"InverseAmount","values":[0.8]}]}
+        // this.func_152764_a(p_152765_1_, var10); {"name":"blit","intarget":"swap","outtarget":"minecraft:main"}
         try {
             this.func_152764_a(p_152765_1_, INVERT);
             this.func_152764_a(p_152765_1_, BLIT);
@@ -141,7 +149,11 @@ public class ShaderZaWarudo extends ShaderGroup {
 
                             var9.addAuxFramebuffer(var30, var19.getGlTextureId(), var20, var21);
                         } else {
-                            var9.addAuxFramebuffer(var30, var17, var17.framebufferTextureWidth, var17.framebufferTextureHeight);
+                            var9.addAuxFramebuffer(
+                                var30,
+                                var17,
+                                var17.framebufferTextureWidth,
+                                var17.framebufferTextureHeight);
                         }
                     } catch (Exception var25) {
                         JsonException var15 = JsonException.func_151379_a(var25);
@@ -174,7 +186,8 @@ public class ShaderZaWarudo extends ShaderGroup {
     private void initUniform(JsonElement p_initUniform_1_) throws JsonException {
         JsonObject var2 = JsonUtils.getJsonElementAsJsonObject(p_initUniform_1_, "uniform");
         String var3 = JsonUtils.getJsonObjectStringFieldValue(var2, "name");
-        ShaderUniform var4 = ((Shader) this.listShaders.get(this.listShaders.size() - 1)).getShaderManager().func_147991_a(var3);
+        ShaderUniform var4 = ((Shader) this.listShaders.get(this.listShaders.size() - 1)).getShaderManager()
+            .func_147991_a(var3);
         if (var4 == null) {
             throw new JsonException("Uniform '" + var3 + "' does not exist");
         } else {
@@ -226,7 +239,8 @@ public class ShaderZaWarudo extends ShaderGroup {
     }
 
     public void deleteShaderGroup() {
-        Iterator var1 = this.mapFramebuffers_.values().iterator();
+        Iterator var1 = this.mapFramebuffers_.values()
+            .iterator();
 
         while (var1.hasNext()) {
             Framebuffer var2 = (Framebuffer) var1.next();
@@ -243,7 +257,8 @@ public class ShaderZaWarudo extends ShaderGroup {
         this.listShaders.clear();
     }
 
-    public Shader addShader(String p_addShader_1_, Framebuffer p_addShader_2_, Framebuffer p_addShader_3_) throws JsonException {
+    public Shader addShader(String p_addShader_1_, Framebuffer p_addShader_2_, Framebuffer p_addShader_3_)
+        throws JsonException {
         Shader var4 = new Shader(this.resourceManager, p_addShader_1_, p_addShader_2_, p_addShader_3_);
         this.listShaders.add(this.listShaders.size(), var4);
         return var4;
@@ -289,8 +304,7 @@ public class ShaderZaWarudo extends ShaderGroup {
             this.field_148036_j += p_loadShaderGroup_1_ - this.field_148037_k;
         }
 
-        for (this.field_148037_k = p_loadShaderGroup_1_; this.field_148036_j > 20.0F; this.field_148036_j -= 20.0F) {
-        }
+        for (this.field_148037_k = p_loadShaderGroup_1_; this.field_148036_j > 20.0F; this.field_148036_j -= 20.0F) {}
 
         Iterator var2 = this.listShaders.iterator();
 
@@ -301,21 +315,23 @@ public class ShaderZaWarudo extends ShaderGroup {
 
     }
 
-    //@Override
-    //public void func_152765_a(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws JsonException {
-    //this.initTarget(var10); "swap"
-    //this.addFramebuffer("swap", this.mainFramebufferWidth, this.mainFramebufferHeight);
+    // @Override
+    // public void func_152765_a(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws JsonException {
+    // this.initTarget(var10); "swap"
+    // this.addFramebuffer("swap", this.mainFramebufferWidth, this.mainFramebufferHeight);
 
-    //this.func_152764_a(p_152765_1_, var10); {"name":"invert","intarget":"minecraft:main","outtarget":"swap","uniforms":[{"name":"InverseAmount","values":[0.8]}]}
-    //this.func_152764_a(p_152765_1_, var10); {"name":"blit","intarget":"swap","outtarget":"minecraft:main"}
+    // this.func_152764_a(p_152765_1_, var10);
+    // {"name":"invert","intarget":"minecraft:main","outtarget":"swap","uniforms":[{"name":"InverseAmount","values":[0.8]}]}
+    // this.func_152764_a(p_152765_1_, var10); {"name":"blit","intarget":"swap","outtarget":"minecraft:main"}
 
-    //}
+    // }
 
     private Framebuffer getFramebuffer(String p_getFramebuffer_1_) {
         if (p_getFramebuffer_1_ == null) {
             return null;
         } else {
-            return p_getFramebuffer_1_.equals("minecraft:main") ? this.mainFramebuffer : (Framebuffer) this.mapFramebuffers_.get(p_getFramebuffer_1_);
+            return p_getFramebuffer_1_.equals("minecraft:main") ? this.mainFramebuffer
+                : (Framebuffer) this.mapFramebuffers_.get(p_getFramebuffer_1_);
         }
     }
 

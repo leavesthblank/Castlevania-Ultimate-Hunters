@@ -1,11 +1,13 @@
 package com.zr2.castlevania.network.handler.client;
 
-import com.zr2.castlevania.network.handler.server.ServerIEEPSyncHandler;
-import com.zr2.castlevania.network.packet.PacketIEEPSync;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+
+import com.zr2.castlevania.network.handler.server.ServerIEEPSyncHandler;
+import com.zr2.castlevania.network.packet.PacketIEEPSync;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class ClientIEEPSyncHandler extends ServerIEEPSyncHandler {
 

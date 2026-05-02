@@ -8,8 +8,7 @@ public class PacketUseStone implements IMessage {
     private int stoneIndex = 0;
     private boolean isActionUse = false;
 
-    public PacketUseStone() {
-    }
+    public PacketUseStone() {}
 
     public PacketUseStone(int stoneIndex, boolean isActionUse) {
         this.stoneIndex = stoneIndex;
@@ -36,5 +35,3 @@ public class PacketUseStone implements IMessage {
         return isActionUse;
     }
 }
-
-

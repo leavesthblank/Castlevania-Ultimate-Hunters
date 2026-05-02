@@ -1,9 +1,10 @@
 package com.zr2.castlevania.item;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.properties.ExtendedPlayerHeart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.properties.ExtendedPlayerHeart;
 
 public class BasicItem extends Item {
 
@@ -15,7 +16,8 @@ public class BasicItem extends Item {
 
     protected static boolean consumeHeart(EntityPlayer player, int i) {
         if (!player.worldObj.isRemote) {
-            ExtendedPlayerHeart playerHeart = (ExtendedPlayerHeart) player.getExtendedProperties(ExtendedPlayerHeart.EXT_PROP_NAME);
+            ExtendedPlayerHeart playerHeart = (ExtendedPlayerHeart) player
+                .getExtendedProperties(ExtendedPlayerHeart.EXT_PROP_NAME);
             if (i > playerHeart.getCurrentHeart()) {
                 return false;
             }

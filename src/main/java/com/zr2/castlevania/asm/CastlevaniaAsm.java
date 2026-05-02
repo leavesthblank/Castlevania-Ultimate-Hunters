@@ -1,17 +1,19 @@
 package com.zr2.castlevania.asm;
 
+import java.util.Map;
+
 import com.zr2.castlevania.asm.transformer.TransformerRendering;
 import com.zr2.castlevania.asm.transformer.TransformerTickRate;
+
 import cpw.mods.fml.relauncher.IFMLCallHook;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
-import java.util.Map;
-
-@IFMLLoadingPlugin.TransformerExclusions({"com.zr2.castlevania.asm"})
+@IFMLLoadingPlugin.TransformerExclusions({ "com.zr2.castlevania.asm" })
 public class CastlevaniaAsm implements IFMLLoadingPlugin, IFMLCallHook {
+
     @Override
     public String[] getASMTransformerClass() {
-        return new String[]{TransformerTickRate.class.getName(), TransformerRendering.class.getName()};
+        return new String[] { TransformerTickRate.class.getName(), TransformerRendering.class.getName() };
     }
 
     @Override

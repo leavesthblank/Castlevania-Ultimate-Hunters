@@ -1,11 +1,12 @@
 package com.zr2.castlevania.item;
 
-import com.zr2.castlevania.properties.ExtendedPlayerStones;
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
+import com.zr2.castlevania.properties.ExtendedPlayerStones;
 
 public class ItemStone extends BasicItem {
 
@@ -33,8 +34,9 @@ public class ItemStone extends BasicItem {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-        ExtendedPlayerStones playerStones = (ExtendedPlayerStones) player.getExtendedProperties(ExtendedPlayerStones.EXT_PROP_NAME);
-        if(!playerStones.isActive(this)) {
+        ExtendedPlayerStones playerStones = (ExtendedPlayerStones) player
+            .getExtendedProperties(ExtendedPlayerStones.EXT_PROP_NAME);
+        if (!playerStones.isActive(this)) {
             itemStack.stackSize--;
             playerStones.setActive(this);
         }

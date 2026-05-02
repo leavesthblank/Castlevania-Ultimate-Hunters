@@ -1,11 +1,13 @@
 package com.zr2.castlevania.event.client;
 
-import com.zr2.castlevania.event.server.ServerTickEventHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraftforge.event.world.WorldEvent;
+
+import com.zr2.castlevania.event.server.ServerTickEventHandler;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ClientLeaveJoinWorldEventHandler {
 

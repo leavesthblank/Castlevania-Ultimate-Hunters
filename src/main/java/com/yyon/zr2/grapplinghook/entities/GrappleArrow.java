@@ -1,14 +1,7 @@
 package com.yyon.zr2.grapplinghook.entities;
 
-import com.yyon.zr2.grapplinghook.BlockPos;
-import com.yyon.zr2.grapplinghook.GrappleMod;
-import com.yyon.zr2.grapplinghook.Vec;
-import com.yyon.zr2.grapplinghook.network.GrappleAttachMessage;
-import com.yyon.zr2.grapplinghook.network.GrappleAttachPosMessage;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import io.netty.buffer.ByteBuf;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,26 +13,33 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-import java.util.List;
+import com.yyon.zr2.grapplinghook.BlockPos;
+import com.yyon.zr2.grapplinghook.GrappleMod;
+import com.yyon.zr2.grapplinghook.Vec;
+import com.yyon.zr2.grapplinghook.network.GrappleAttachMessage;
+import com.yyon.zr2.grapplinghook.network.GrappleAttachPosMessage;
+
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
 
 /*
  * This file is part of GrappleMod.
-
-    GrappleMod is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    GrappleMod is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with GrappleMod.  If not, see <http://www.gnu.org/licenses/>.
+ * GrappleMod is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * GrappleMod is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with GrappleMod. If not, see <http://www.gnu.org/licenses/>.
  */
 
 public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSpawnData {
+
     public Entity shootingEntity = null;
     public int shootingEntityID;
 
@@ -58,20 +58,19 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
         super(worldIn);
     }
 
-    public GrappleArrow(World worldIn, EntityLivingBase shooter,
-                        boolean righthand) {
+    public GrappleArrow(World worldIn, EntityLivingBase shooter, boolean righthand) {
         super(worldIn, shooter);
 
         this.shootingEntity = shooter;
         this.shootingEntityID = this.shootingEntity.getEntityId();
-		
-		/*
-		double x = 0.36;
-		if (righthand) {x = -0.36;}
-        Vec pos = Vec.positionvec(this);
-        pos.add_ip(new Vec(x, -0.175, 0.45).rotate_yaw(Math.toRadians(shooter.rotationYaw)));
-        this.setPosition(pos.x, pos.y, pos.z);
-        */
+
+        /*
+         * double x = 0.36;
+         * if (righthand) {x = -0.36;}
+         * Vec pos = Vec.positionvec(this);
+         * pos.add_ip(new Vec(x, -0.175, 0.45).rotate_yaw(Math.toRadians(shooter.rotationYaw)));
+         * this.setPosition(pos.x, pos.y, pos.z);
+         */
 
         GrappleMod.updateMaxLen(worldIn);
         GrappleMod.updateGrapplingBlocks(worldIn);
@@ -95,7 +94,6 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
             super.setPosition(this.thispos.x, this.thispos.y, this.thispos.z);
         }
 
-
         if (this.toofaraway()) {
             this.removeServer();
         }
@@ -114,14 +112,14 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
     }
 
     public final int RenderBoundingBoxSize = 999;
-	/*
-	@Override
-	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getRenderBoundingBox() {
-		return new AxisAlignedBB(-RenderBoundingBoxSize, -RenderBoundingBoxSize, -RenderBoundingBoxSize, 
-				RenderBoundingBoxSize, RenderBoundingBoxSize, RenderBoundingBoxSize);
-	}
-	*/
+    /*
+     * @Override
+     * @SideOnly(Side.CLIENT)
+     * public AxisAlignedBB getRenderBoundingBox() {
+     * return new AxisAlignedBB(-RenderBoundingBoxSize, -RenderBoundingBoxSize, -RenderBoundingBoxSize,
+     * RenderBoundingBoxSize, RenderBoundingBoxSize, RenderBoundingBoxSize);
+     * }
+     */
 
     public boolean toofaraway() {
         if (this.shootingEntity == null) {
@@ -130,7 +128,9 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
         if (!this.worldObj.isRemote) {
             if (!GrappleMod.attached.contains(this.shootingEntityID)) {
                 if (GrappleMod.grapplingLength != 0) {
-                    double d = Vec.positionvec(this).sub(Vec.positionvec(this.shootingEntity)).length();
+                    double d = Vec.positionvec(this)
+                        .sub(Vec.positionvec(this.shootingEntity))
+                        .length();
                     if (d > GrappleMod.grapplingLength) {
                         return true;
                     }
@@ -148,7 +148,6 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
         }
         super.setPosition(x, y, z);
     }
-
 
     @Override
     public void writeSpawnData(ByteBuf data) {
@@ -185,7 +184,8 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
 
                     Vec playerpos = Vec.positionvec(this.shootingEntity);
                     Vec entitypos = Vec.positionvec(entityhit);
-                    Vec yank = playerpos.sub(entitypos).mult(0.4);
+                    Vec yank = playerpos.sub(entitypos)
+                        .mult(0.4);
                     entityhit.addVelocity(yank.x, Math.min(yank.y, 2), yank.z);
 
                     this.removeServer();
@@ -195,12 +195,18 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
                 BlockPos blockpos = null;
 
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                    blockpos = new BlockPos(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
+                    blockpos = new BlockPos(
+                        movingobjectposition.blockX,
+                        movingobjectposition.blockY,
+                        movingobjectposition.blockZ);
                 }
                 Vec vec3 = null;
 
                 if (movingobjectposition != null) {
-                    vec3 = new Vec(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
+                    vec3 = new Vec(
+                        movingobjectposition.hitVec.xCoord,
+                        movingobjectposition.hitVec.yCoord,
+                        movingobjectposition.hitVec.zCoord);
                 }
                 this.serverAttach(blockpos, vec3, movingobjectposition.sideHit);
             }
@@ -218,7 +224,7 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
                 Block block = this.worldObj.getBlock(blockpos.x, blockpos.y, blockpos.z);
 
                 if ((!GrappleMod.removeblocks && !GrappleMod.grapplingblocks.contains(block))
-                        || (GrappleMod.removeblocks && GrappleMod.grapplingblocks.contains(block))) {
+                    || (GrappleMod.removeblocks && GrappleMod.grapplingblocks.contains(block))) {
                     this.removeServer();
                     return;
                 }
@@ -233,23 +239,22 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
             this.setPosition(vec3.x, vec3.y, vec3.z);
         }
 
-        //west -x
-        //north -z
+        // west -x
+        // north -z
         System.out.println(sideHit);
         if (sideHit == 0) { // bottom
             this.posY -= 0.3;
-//		} else if (sideHit == 1) { // top
-//			this.posY += 0.05;
-//		} else if (sideHit == 2) { // east
-//			this.posX += 0.05;
+            // } else if (sideHit == 1) { // top
+            // this.posY += 0.05;
+            // } else if (sideHit == 2) { // east
+            // this.posX += 0.05;
         } else if (sideHit == 4) { // west
             this.posX -= 0.05;
         } else if (sideHit == 2) { // north
             this.posZ -= 0.05;
-//		} else if (sideHit == 5) { // south
-//			this.posZ += 0.05;
+            // } else if (sideHit == 5) { // south
+            // this.posZ += 0.05;
         }
-
 
         if (this.toofaraway()) {
             System.out.println("TOOFAR");
@@ -264,13 +269,29 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
         this.firstattach = true;
         GrappleMod.attached.add(this.shootingEntityID);
 
-        GrappleMod.sendtocorrectclient(new GrappleAttachMessage(this.getEntityId(), this.posX, this.posY, this.posZ, this.getControlId(), this.shootingEntityID, GrappleMod.grapplingLength, blockpos), this.shootingEntityID, this.worldObj);
+        GrappleMod.sendtocorrectclient(
+            new GrappleAttachMessage(
+                this.getEntityId(),
+                this.posX,
+                this.posY,
+                this.posZ,
+                this.getControlId(),
+                this.shootingEntityID,
+                GrappleMod.grapplingLength,
+                blockpos),
+            this.shootingEntityID,
+            this.worldObj);
         if (this.shootingEntity instanceof EntityPlayerMP) { // fixes strange bug in LAN
             EntityPlayerMP sender = (EntityPlayerMP) this.shootingEntity;
             int dimension = sender.dimension;
             MinecraftServer minecraftServer = sender.mcServer;
-            for (EntityPlayerMP player : (List<EntityPlayerMP>) minecraftServer.getConfigurationManager().playerEntityList) {
-                GrappleAttachPosMessage msg = new GrappleAttachPosMessage(this.getEntityId(), this.posX, this.posY, this.posZ);   // must generate a fresh message for every player!
+            for (EntityPlayerMP player : (List<EntityPlayerMP>) minecraftServer
+                .getConfigurationManager().playerEntityList) {
+                GrappleAttachPosMessage msg = new GrappleAttachPosMessage(
+                    this.getEntityId(),
+                    this.posX,
+                    this.posY,
+                    this.posZ); // must generate a fresh message for every player!
                 if (dimension == player.dimension) {
                     GrappleMod.sendtocorrectclient(msg, player.getEntityId(), player.worldObj);
                 }
@@ -285,7 +306,6 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
             GrappleMod.proxy.resetlaunchertime(this.shootingEntityID);
         }
     }
-
 
     @Override
     protected float getGravityVelocity() {
@@ -318,7 +338,8 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
         this.thispos = new Vec(x, y, z);
     }
 
-    public void setHeadingFromThrower(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
+    public void setHeadingFromThrower(Entity entityThrower, float rotationPitchIn, float rotationYawIn,
+        float pitchOffset, float velocity, float inaccuracy) {
         float f = -MathHelper.sin(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
         float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * 0.017453292F);
         float f2 = MathHelper.cos(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);

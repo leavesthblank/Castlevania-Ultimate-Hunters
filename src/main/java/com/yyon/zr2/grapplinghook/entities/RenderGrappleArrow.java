@@ -1,7 +1,5 @@
 package com.yyon.zr2.grapplinghook.entities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
@@ -14,31 +12,32 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /*
  * This file is part of GrappleMod.
-
-    GrappleMod is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    GrappleMod is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with GrappleMod.  If not, see <http://www.gnu.org/licenses/>.
+ * GrappleMod is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * GrappleMod is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with GrappleMod. If not, see <http://www.gnu.org/licenses/>.
  */
 
 @SideOnly(Side.CLIENT)
 public class RenderGrappleArrow extends Render {
+
     protected final Item item;
-    //    private final RenderItem itemRenderer;
+    // private final RenderItem itemRenderer;
     private final ItemStack itemstack;
     private static final ResourceLocation LEASH_KNOT_TEXTURES = new ResourceLocation("textures/entity/lead_knot.png");
 
@@ -46,7 +45,7 @@ public class RenderGrappleArrow extends Render {
         super();
         this.item = itemIn;
         this.itemstack = new ItemStack(this.item);
-//        this.itemRenderer = itemRendererIn;
+        // this.itemRenderer = itemRendererIn;
     }
 
     /**
@@ -72,7 +71,6 @@ public class RenderGrappleArrow extends Render {
 
         int primaryhand = 1;
 
-
         Vec3 offset = Vec3.createVectorHelper(0, 0, 0);
         if (!arrow.attached) {
             if (arrow.righthand) {
@@ -80,8 +78,10 @@ public class RenderGrappleArrow extends Render {
             } else {
                 offset = Vec3.createVectorHelper((double) 1 * 0.36D, -0.175D, 0.45D); // hand relative to person
             }
-            offset.rotateAroundX(-(e.prevRotationPitch + (e.rotationPitch - e.prevRotationPitch) * partialTicks) * 0.017453292F);
-            offset.rotateAroundY(-(e.prevRotationYaw + (e.rotationYaw - e.prevRotationYaw) * partialTicks) * 0.017453292F);
+            offset.rotateAroundX(
+                -(e.prevRotationPitch + (e.rotationPitch - e.prevRotationPitch) * partialTicks) * 0.017453292F);
+            offset.rotateAroundY(
+                -(e.prevRotationYaw + (e.rotationYaw - e.prevRotationYaw) * partialTicks) * 0.017453292F);
 
             double dist = e.getDistanceToEntity(arrow);
             double mult = 1 - (dist / 10.0);
@@ -104,18 +104,23 @@ public class RenderGrappleArrow extends Render {
         Tessellator tessellator = Tessellator.instance;
 
         this.func_77026_a(tessellator, iicon);
-//        GL11.glDisable(GL11.GL_LIGHTING);
-//        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
+        // GL11.glDisable(GL11.GL_LIGHTING);
+        // OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
 
         GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef((float) (this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(
+            (float) (this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * this.renderManager.playerViewX,
+            1.0F,
+            0.0F,
+            0.0F);
         GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         tessellator.draw();
 
-//        this.itemRenderer.renderIcon(p_94149_1_, p_94149_2_, iicon, p_94149_4_, p_94149_5_)//.renderItem(this.getStackToRender(entity));
+        // this.itemRenderer.renderIcon(p_94149_1_, p_94149_2_, iicon, p_94149_4_,
+        // p_94149_5_)//.renderItem(this.getStackToRender(entity));
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
@@ -126,13 +131,17 @@ public class RenderGrappleArrow extends Render {
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         this.bindEntityTexture(entity);
         GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef((float) (this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(
+            (float) (this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX,
+            1.0F,
+            0.0F,
+            0.0F);
 
         tessellator.startDrawing(7);
-        tessellator.addVertex(-0.5D, -0.5D, 0.0D);//.tex(0.0625D, 0.1875D).normal(0.0F, 1.0F, 0.0F).endVertex();
-        tessellator.addVertex(0.5D, -0.5D, 0.0D);//.tex(0.125D, 0.1875D).normal(0.0F, 1.0F, 0.0F).endVertex();
-        tessellator.addVertex(0.5D, 0.5D, 0.0D);//.tex(0.125D, 0.125D).normal(0.0F, 1.0F, 0.0F).endVertex();
-        tessellator.addVertex(-0.5D, 0.5D, 0.0D);//.tex(0.0625D, 0.125D).normal(0.0F, 1.0F, 0.0F).endVertex();
+        tessellator.addVertex(-0.5D, -0.5D, 0.0D);// .tex(0.0625D, 0.1875D).normal(0.0F, 1.0F, 0.0F).endVertex();
+        tessellator.addVertex(0.5D, -0.5D, 0.0D);// .tex(0.125D, 0.1875D).normal(0.0F, 1.0F, 0.0F).endVertex();
+        tessellator.addVertex(0.5D, 0.5D, 0.0D);// .tex(0.125D, 0.125D).normal(0.0F, 1.0F, 0.0F).endVertex();
+        tessellator.addVertex(-0.5D, 0.5D, 0.0D);// .tex(0.0625D, 0.125D).normal(0.0F, 1.0F, 0.0F).endVertex();
         tessellator.draw();
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -150,14 +159,16 @@ public class RenderGrappleArrow extends Render {
         double d6;
         double d7;
 
-        if ((this.renderManager.options == null || this.renderManager.options.thirdPersonView <= 0) && e == Minecraft.getMinecraft().thePlayer) {
+        if ((this.renderManager.options == null || this.renderManager.options.thirdPersonView <= 0)
+            && e == Minecraft.getMinecraft().thePlayer) {
             Vec3 V;
             if (arrow.righthand) {
                 V = Vec3.createVectorHelper((double) k * -0.36D, -0.175D, 0.45D); // hand relative to person
             } else {
                 V = Vec3.createVectorHelper((double) k * 0.36D, -0.175D, 0.45D); // hand relative to person
             }
-            V.rotateAroundX(-(e.prevRotationPitch + (e.rotationPitch - e.prevRotationPitch) * partialTicks) * 0.017453292F);
+            V.rotateAroundX(
+                -(e.prevRotationPitch + (e.rotationPitch - e.prevRotationPitch) * partialTicks) * 0.017453292F);
             V.rotateAroundY(-(e.prevRotationYaw + (e.rotationYaw - e.prevRotationYaw) * partialTicks) * 0.017453292F);
             V.rotateAroundY(f8 * 0.5F);
             V.rotateAroundX(-f8 * 0.7F);
@@ -216,8 +227,8 @@ public class RenderGrappleArrow extends Render {
             }
 
             tessellator.setColorRGBA_F(R, G, B, 1.0F);
-            tessellator.addVertex(X, Y + 0.025D, Z);//.color(R, G, B, 1.0F).endVertex();
-            tessellator.addVertex(X - 0.025D, Y, Z - 0.025D);//.color(R, G, B, 1.0F).endVertex();
+            tessellator.addVertex(X, Y + 0.025D, Z);// .color(R, G, B, 1.0F).endVertex();
+            tessellator.addVertex(X - 0.025D, Y, Z - 0.025D);// .color(R, G, B, 1.0F).endVertex();
         }
 
         tessellator.draw();
@@ -243,8 +254,8 @@ public class RenderGrappleArrow extends Render {
                 Y = y + (d11 * (double) f10) * taut + (1 - taut) * (d11 * (double) (Math.sqrt(f10)));
             }
             tessellator.setColorRGBA_F(R, G, B, 1.0F);
-            tessellator.addVertex(X + 0.025D, Y, Z - 0.025D);//.color(R, G, B, 1.0F).endVertex();
-            tessellator.addVertex(X, Y + 0.025D, Z);//.color(R, G, B, 1.0F).endVertex();
+            tessellator.addVertex(X + 0.025D, Y, Z - 0.025D);// .color(R, G, B, 1.0F).endVertex();
+            tessellator.addVertex(X, Y + 0.025D, Z);// .color(R, G, B, 1.0F).endVertex();
         }
 
         tessellator.draw();
@@ -270,8 +281,8 @@ public class RenderGrappleArrow extends Render {
                 Y = y + (d11 * (double) f10) * taut + (1 - taut) * (d11 * (double) (Math.sqrt(f10)));
             }
             tessellator.setColorRGBA_F(R, G, B, 1.0F);
-            tessellator.addVertex(X, Y - 0.025D, Z);//.color(R, G, B, 1.0F).endVertex();
-            tessellator.addVertex(X + 0.025D, Y, Z - 0.025D);//.color(R, G, B, 1.0F).endVertex();
+            tessellator.addVertex(X, Y - 0.025D, Z);// .color(R, G, B, 1.0F).endVertex();
+            tessellator.addVertex(X + 0.025D, Y, Z - 0.025D);// .color(R, G, B, 1.0F).endVertex();
         }
 
         tessellator.draw();
@@ -297,8 +308,8 @@ public class RenderGrappleArrow extends Render {
                 Y = y + (d11 * (double) f10) * taut + (1 - taut) * (d11 * (double) (Math.sqrt(f10)));
             }
             tessellator.setColorRGBA_F(R, G, B, 1.0F);
-            tessellator.addVertex(X - 0.025D, Y, Z - 0.025D);//.color(R, G, B, 1.0F).endVertex();
-            tessellator.addVertex(X, Y - 0.025D, Z);//.color(R, G, B, 1.0F).endVertex();
+            tessellator.addVertex(X - 0.025D, Y, Z - 0.025D);// .color(R, G, B, 1.0F).endVertex();
+            tessellator.addVertex(X, Y - 0.025D, Z);// .color(R, G, B, 1.0F).endVertex();
         }
 
         tessellator.draw();
@@ -307,31 +318,32 @@ public class RenderGrappleArrow extends Render {
         Y = y + d11;
         Z = z + d12;
         tessellator.setColorRGBA_F(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F);
-        tessellator.addVertex(X, Y - 0.025D, Z);//.color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F).endVertex();
-        tessellator.addVertex(X - 0.025D, Y, Z - 0.025D);//.color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F).endVertex();
-        tessellator.addVertex(X, Y + 0.025D, Z);//.color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F).endVertex();
-        tessellator.addVertex(X + 0.025D, Y, Z - 0.025D);//.color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F).endVertex();
-        tessellator.addVertex(X, Y - 0.025D, Z);//.color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F).endVertex();
+        tessellator.addVertex(X, Y - 0.025D, Z);// .color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F).endVertex();
+        tessellator.addVertex(X - 0.025D, Y, Z - 0.025D);// .color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F,
+                                                         // 1.0F).endVertex();
+        tessellator.addVertex(X, Y + 0.025D, Z);// .color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F).endVertex();
+        tessellator.addVertex(X + 0.025D, Y, Z - 0.025D);// .color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F,
+                                                         // 1.0F).endVertex();
+        tessellator.addVertex(X, Y - 0.025D, Z);// .color(0.5F * 0.7F, 0.4F * 0.7F, 0.3F * 0.7F, 1.0F).endVertex();
         tessellator.draw();
 
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_CULL_FACE);
-//        GL11.enableLighting();
-//        GL11.enableTexture2D();
-//        GL11.enableCull();
-//            GL11.glEnable(GL11.GL_LIGHTING);
+        // GL11.enableLighting();
+        // GL11.enableTexture2D();
+        // GL11.enableCull();
+        // GL11.glEnable(GL11.GL_LIGHTING);
 
-//        super.doRender(entity, x, y, z, entityYaw, partialTicks);
-
+        // super.doRender(entity, x, y, z, entityYaw, partialTicks);
 
     }
 
-//    @Override
-//	public boolean shouldRender(Entity livingEntity, ICamera camera, double camX,
-//			double camY, double camZ) {
-//		return true;
-//	}
+    // @Override
+    // public boolean shouldRender(Entity livingEntity, ICamera camera, double camX,
+    // double camY, double camZ) {
+    // return true;
+    // }
 
     public ItemStack getStackToRender(Entity entityIn) {
         return this.itemstack;

@@ -1,9 +1,11 @@
 package com.zr2.castlevania.network.packet;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import com.zr2.castlevania.properties.IEEPSyncable;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class PacketIEEPSync implements IMessage {
 
@@ -14,16 +16,15 @@ public class PacketIEEPSync implements IMessage {
 
     public PacketIEEPSync(IEEPSyncable ieepSyncable) {
         this.ieepId = ieepSyncable.id();
-        this.entityId = ieepSyncable.getIEEPOwner().getEntityId();
+        this.entityId = ieepSyncable.getIEEPOwner()
+            .getEntityId();
         this.ieep = ieepSyncable;
         NBTTagCompound nbt = new NBTTagCompound();
         ieepSyncable.saveNBTData(nbt);
         this.nbt = nbt.toString();
     }
 
-    public PacketIEEPSync() {
-    }
-
+    public PacketIEEPSync() {}
 
     @Override
     public void fromBytes(ByteBuf buf) {

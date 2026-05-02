@@ -1,11 +1,12 @@
 package com.zr2.castlevania.inventory;
 
-import com.zr2.castlevania.item.ItemStone;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+
+import com.zr2.castlevania.item.ItemStone;
 
 public class SlotAbilityStone extends Slot {
 

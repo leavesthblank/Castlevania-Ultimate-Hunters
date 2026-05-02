@@ -1,11 +1,12 @@
 package com.zr2.castlevania.entity;
 
-import com.zr2.castlevania.properties.ExtendedPlayerFire;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.properties.ExtendedPlayerFire;
 
 public class EntityHolyFire extends Entity {
 
@@ -36,16 +37,20 @@ public class EntityHolyFire extends Entity {
         if (ticksExisted - this.getDormant() > 30) {
             this.setDead();
         } else if (!this.worldObj.isRemote && this.ticksExisted > this.getDormant()) {
-            for (Object o : this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, this.boundingBox.copy().offset(this.posX - 1, this.posY, this.posZ))) {
+            for (Object o : this.worldObj.getEntitiesWithinAABB(
+                EntityLivingBase.class,
+                this.boundingBox.copy()
+                    .offset(this.posX - 1, this.posY, this.posZ))) {
                 EntityLivingBase entity = (EntityLivingBase) o;
-                ExtendedPlayerFire extendedPlayerFire = (ExtendedPlayerFire) entity.getExtendedProperties(ExtendedPlayerFire.EXT_PROP_NAME);
+                ExtendedPlayerFire extendedPlayerFire = (ExtendedPlayerFire) entity
+                    .getExtendedProperties(ExtendedPlayerFire.EXT_PROP_NAME);
                 if (extendedPlayerFire.getOnFireTick() <= 0) {
                     extendedPlayerFire.setOnFireTick(60);
                     entity.attackEntityFrom(DamageSource.inFire, 6);
                 }
             }
         }
-        this.motionY = -10000; //Force land on ground
+        this.motionY = -10000; // Force land on ground
 
     }
 

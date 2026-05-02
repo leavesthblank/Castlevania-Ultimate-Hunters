@@ -1,12 +1,13 @@
 package com.yyon.zr2.grapplinghook;
 
+import net.minecraft.entity.Entity;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraft.entity.Entity;
-
 
 public class ServerProxyClass extends CommonProxyClass {
+
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);

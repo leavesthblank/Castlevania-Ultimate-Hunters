@@ -1,11 +1,5 @@
 package com.zr2.castlevania.event.server;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.properties.ExtendedPlayerBible;
-import com.zr2.castlevania.properties.ExtendedPlayerHeart;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +9,14 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.properties.ExtendedPlayerBible;
+import com.zr2.castlevania.properties.ExtendedPlayerHeart;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
 
 public class ServerAmenadielEventHandler {
 
@@ -38,7 +40,8 @@ public class ServerAmenadielEventHandler {
 
     @SubscribeEvent
     public void onPlayerHurt(LivingHurtEvent event) {
-        if (event.entity instanceof EntityPlayer && isPlayerUsing((EntityPlayer) event.entity, Castlevania.BIBLE) != null) {
+        if (event.entity instanceof EntityPlayer
+            && isPlayerUsing((EntityPlayer) event.entity, Castlevania.BIBLE) != null) {
             event.setCanceled(true);
         }
     }
@@ -50,11 +53,13 @@ public class ServerAmenadielEventHandler {
             if (item != null) {
                 if (item.getItem() == Castlevania.BIBLE && consumeHeart(event.entityPlayer, 3)) {
                     item.setItemDamage(1);
-                    ExtendedPlayerBible bible = (ExtendedPlayerBible) event.entityPlayer.getExtendedProperties(ExtendedPlayerBible.EXT_PROP_NAME);
+                    ExtendedPlayerBible bible = (ExtendedPlayerBible) event.entityPlayer
+                        .getExtendedProperties(ExtendedPlayerBible.EXT_PROP_NAME);
                     bible.useBible();
-                } else if (item.getItem() == Castlevania.STOPWATCH && ServerTickEventHandler.TICK_RATE <= 0 && consumeHeart(event.entityPlayer, 5)) {
-                    ServerTickEventHandler.TICK_RATE = 100;
-                }
+                } else if (item.getItem() == Castlevania.STOPWATCH && ServerTickEventHandler.TICK_RATE <= 0
+                    && consumeHeart(event.entityPlayer, 5)) {
+                        ServerTickEventHandler.TICK_RATE = 100;
+                    }
             }
         }
     }
@@ -80,7 +85,8 @@ public class ServerAmenadielEventHandler {
 
     private static boolean consumeHeart(EntityPlayer player, int i) {
         if (!player.worldObj.isRemote) {
-            ExtendedPlayerHeart playerHeart = (ExtendedPlayerHeart) player.getExtendedProperties(ExtendedPlayerHeart.EXT_PROP_NAME);
+            ExtendedPlayerHeart playerHeart = (ExtendedPlayerHeart) player
+                .getExtendedProperties(ExtendedPlayerHeart.EXT_PROP_NAME);
             if (i > playerHeart.getCurrentHeart()) {
                 return false;
             }

@@ -1,22 +1,24 @@
 package com.zr2.castlevania.event.server;
 
-import com.zr2.castlevania.entity.EntitySerpentStone;
-import com.zr2.castlevania.event.StoneAbilityEvent;
-import com.zr2.castlevania.network.packet.PacketUseStoneAbility;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.network.play.server.S1BPacketEntityAttach;
 import net.minecraft.potion.Potion;
 
-public class ServerStoneAbilityEventHandler extends StoneAbilityEvent implements IMessageHandler<PacketUseStoneAbility, IMessage> {
+import com.zr2.castlevania.entity.EntitySerpentStone;
+import com.zr2.castlevania.event.StoneAbilityEvent;
+import com.zr2.castlevania.network.packet.PacketUseStoneAbility;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+
+public class ServerStoneAbilityEventHandler extends StoneAbilityEvent
+    implements IMessageHandler<PacketUseStoneAbility, IMessage> {
 
     public static final ServerStoneAbilityEventHandler INSTANCE = new ServerStoneAbilityEventHandler();
 
-    private ServerStoneAbilityEventHandler() {
-    }
+    private ServerStoneAbilityEventHandler() {}
 
     protected void serverTick(EntityPlayer player, AbilityStone stone) {
         switch (stone) {

@@ -1,10 +1,17 @@
 package com.zr2.castlevania.asm.transformer;
 
 import net.minecraft.launchwrapper.IClassTransformer;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 public class TransformerRendering implements IClassTransformer {
 
@@ -28,17 +35,22 @@ public class TransformerRendering implements IClassTransformer {
         classReader.accept(classNode, 0);
 
         for (MethodNode method : classNode.methods) {
-            if (method.desc.equals("(F)V") && method.name.equals("orientCamera") || method.name.equals("func_78467_g") || method.name.equals("h")) {
+            if (method.desc.equals("(F)V") && method.name.equals("orientCamera") || method.name.equals("func_78467_g")
+                || method.name.equals("h")) {
                 InsnList list = new InsnList();
                 for (AbstractInsnNode node : method.instructions.toArray()) {
                     list.add(node);
                     AbstractInsnNode prevNode = node.getPrevious();
-                    if (!isFinished && node.getOpcode() == Opcodes.GETFIELD && prevNode != null && prevNode.getOpcode() == Opcodes.ALOAD && ((VarInsnNode) prevNode).var == 2) {
-                        MethodInsnNode insnNode = new MethodInsnNode(Opcodes.INVOKESTATIC,
-                                "com/zr2/castlevania/event/client/ClientStoneAbilityEventHandler",
-                                "orientCameraHook",
-                                "()F",
-                                false);
+                    if (!isFinished && node.getOpcode() == Opcodes.GETFIELD
+                        && prevNode != null
+                        && prevNode.getOpcode() == Opcodes.ALOAD
+                        && ((VarInsnNode) prevNode).var == 2) {
+                        MethodInsnNode insnNode = new MethodInsnNode(
+                            Opcodes.INVOKESTATIC,
+                            "com/zr2/castlevania/event/client/ClientStoneAbilityEventHandler",
+                            "orientCameraHook",
+                            "()F",
+                            false);
                         list.add(insnNode);
                         list.add(new InsnNode(Opcodes.FADD));
                         isFinished = true;

@@ -1,10 +1,5 @@
 package com.zr2.castlevania.event.client;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.properties.ExtendedPlayerBible;
-import com.zr2.castlevania.properties.ExtendedPlayerFire;
-import com.zr2.castlevania.render.RenderHolyFire;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -15,7 +10,15 @@ import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+
 import org.lwjgl.opengl.GL11;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.properties.ExtendedPlayerBible;
+import com.zr2.castlevania.properties.ExtendedPlayerFire;
+import com.zr2.castlevania.render.RenderHolyFire;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ClientRenderEventHandler {
 
@@ -24,7 +27,8 @@ public class ClientRenderEventHandler {
 
     @SubscribeEvent
     public void onRender(RenderPlayerEvent.Post event) {
-        ExtendedPlayerBible bible = (ExtendedPlayerBible) event.entityPlayer.getExtendedProperties(ExtendedPlayerBible.EXT_PROP_NAME);
+        ExtendedPlayerBible bible = (ExtendedPlayerBible) event.entityPlayer
+            .getExtendedProperties(ExtendedPlayerBible.EXT_PROP_NAME);
 
         if (bible.isUsingBible()) {
             renderBible(event.entityPlayer);
@@ -34,16 +38,20 @@ public class ClientRenderEventHandler {
     @SubscribeEvent
     public void onRender(RenderHandEvent event) {
         EntityPlayer player = mc.thePlayer;
-        ExtendedPlayerBible bible = (ExtendedPlayerBible) player.getExtendedProperties(ExtendedPlayerBible.EXT_PROP_NAME);
-        if (bible.isUsingBible() && mc.gameSettings.thirdPersonView == 0/* && mc.currentScreen == null*/) {
+        ExtendedPlayerBible bible = (ExtendedPlayerBible) player
+            .getExtendedProperties(ExtendedPlayerBible.EXT_PROP_NAME);
+        if (bible.isUsingBible() && mc.gameSettings.thirdPersonView == 0/* && mc.currentScreen == null */) {
             renderBible(player);
-            Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+            Minecraft.getMinecraft()
+                .getTextureManager()
+                .bindTexture(TextureMap.locationBlocksTexture);
         }
     }
 
     @SubscribeEvent
     public void onRender(RenderLivingEvent.Post event) {
-        ExtendedPlayerFire extendedPlayerFire = (ExtendedPlayerFire) event.entity.getExtendedProperties(ExtendedPlayerFire.EXT_PROP_NAME);
+        ExtendedPlayerFire extendedPlayerFire = (ExtendedPlayerFire) event.entity
+            .getExtendedProperties(ExtendedPlayerFire.EXT_PROP_NAME);
         if (extendedPlayerFire.getOnFireTick() > 0) {
             renderHolyFire.doRender(event.entity, event.x, event.y, event.z, 0, 0);
         }
@@ -65,7 +73,9 @@ public class ClientRenderEventHandler {
 
                 GL11.glEnable(32826);
                 GL11.glScalef(0.5F, 0.5F, 0.5F);
-                Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationItemsTexture);
+                Minecraft.getMinecraft()
+                    .getTextureManager()
+                    .bindTexture(TextureMap.locationItemsTexture);
                 Tessellator var11 = Tessellator.instance;
                 this.func_77026_a(var11, var10);
                 GL11.glDisable(32826);

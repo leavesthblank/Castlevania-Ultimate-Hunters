@@ -1,13 +1,13 @@
 package com.zr2.castlevania.entity;
 
+import javax.vecmath.Vector2d;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-
-import javax.vecmath.Vector2d;
 
 public class EntitySerpentStone extends EntityThrowable {
 
@@ -30,7 +30,7 @@ public class EntitySerpentStone extends EntityThrowable {
         Vec3 vec3 = entity.getLookVec();
         Vector2d vector = new Vector2d(vec3.xCoord, vec3.zCoord);
         vector.normalize();
-        //vector.scale(1);
+        // vector.scale(1);
         this.motionX = vector.x;
         this.motionZ = vector.y;
         entity.mountEntity(this);
@@ -40,7 +40,8 @@ public class EntitySerpentStone extends EntityThrowable {
 
     @Override
     protected void onImpact(MovingObjectPosition p_70184_1_) {
-        if (p_70184_1_.entityHit != this.riddenByEntity || p_70184_1_.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+        if (p_70184_1_.entityHit != this.riddenByEntity
+            || p_70184_1_.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             this.setDead();
         }
     }

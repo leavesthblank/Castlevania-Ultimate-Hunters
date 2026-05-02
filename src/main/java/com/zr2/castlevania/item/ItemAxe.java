@@ -1,11 +1,12 @@
 package com.zr2.castlevania.item;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.entity.EntityAxe;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.entity.EntityAxe;
 
 public class ItemAxe extends BasicItem {
 

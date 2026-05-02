@@ -1,24 +1,28 @@
 package com.zr2.castlevania.network.handler.client;
 
-import com.google.gson.JsonSyntaxException;
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.event.server.ServerTickEventHandler;
-import com.zr2.castlevania.network.packet.PacketTimeStopStage;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import java.io.IOException;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.util.ResourceLocation;
 
-import java.io.IOException;
+import com.google.gson.JsonSyntaxException;
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.event.server.ServerTickEventHandler;
+import com.zr2.castlevania.network.packet.PacketTimeStopStage;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class ClientTimeStopHandler implements IMessageHandler<PacketTimeStopStage, IMessage> {
 
     private static final ResourceLocation SHADER_DESATURATE = new ResourceLocation("shaders/post/desaturate.json");
-    private static final ResourceLocation SHADER_INVERT = new ResourceLocation(Castlevania.MODID, "shaders/post/zawarudo.json");
+    private static final ResourceLocation SHADER_INVERT = new ResourceLocation(
+        Castlevania.MODID,
+        "shaders/post/zawarudo.json");
 
     @Override
     public IMessage onMessage(PacketTimeStopStage timeStopStage, MessageContext messageContext) {
@@ -49,7 +53,11 @@ public class ClientTimeStopHandler implements IMessageHandler<PacketTimeStopStag
 
             if (shader != null) {
                 try {
-                    entityRenderer.theShaderGroup = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shader);
+                    entityRenderer.theShaderGroup = new ShaderGroup(
+                        mc.getTextureManager(),
+                        mc.getResourceManager(),
+                        mc.getFramebuffer(),
+                        shader);
                     entityRenderer.theShaderGroup.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
                 } catch (IOException | JsonSyntaxException var2) {
                     Castlevania.LOGGER.warn("Failed to load shader: " + shader, var2);

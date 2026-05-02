@@ -1,11 +1,8 @@
 package com.zr2.castlevania.event;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.item.ItemStone;
-import com.zr2.castlevania.properties.ExtendedPlayerStones;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,15 +12,21 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.item.ItemStone;
+import com.zr2.castlevania.properties.ExtendedPlayerStones;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
 
 public abstract class StoneAbilityEvent {
 
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            ExtendedPlayerStones playerStones = (ExtendedPlayerStones) event.player.getExtendedProperties(ExtendedPlayerStones.EXT_PROP_NAME);
+            ExtendedPlayerStones playerStones = (ExtendedPlayerStones) event.player
+                .getExtendedProperties(ExtendedPlayerStones.EXT_PROP_NAME);
             for (AbilityStone abilityStone : AbilityStone.values()) {
                 if (playerStones.isActive(abilityStone.item)) {
                     if (event.side == Side.CLIENT) {
@@ -36,12 +39,9 @@ public abstract class StoneAbilityEvent {
         }
     }
 
-    protected void clientTick(EntityPlayer player, AbilityStone stone) {
-    }
+    protected void clientTick(EntityPlayer player, AbilityStone stone) {}
 
-    protected void serverTick(EntityPlayer player, AbilityStone stone) {
-    }
-
+    protected void serverTick(EntityPlayer player, AbilityStone stone) {}
 
     protected AxisAlignedBB isClimbing(EntityPlayer player) {
         AxisAlignedBB bb = player.boundingBox.expand(0.01, 0, 0.01);

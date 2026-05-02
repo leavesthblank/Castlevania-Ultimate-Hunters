@@ -1,10 +1,11 @@
 package com.zr2.castlevania.properties;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.network.packet.PacketIEEPSync;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.network.packet.PacketIEEPSync;
 
 public class ExtendedPlayerFire implements IEEPSyncable {
 
@@ -29,8 +30,7 @@ public class ExtendedPlayerFire implements IEEPSyncable {
     }
 
     @Override
-    public void init(Entity entity, World world) {
-    }
+    public void init(Entity entity, World world) {}
 
     public int getOnFireTick() {
         return fireTick;
@@ -38,7 +38,8 @@ public class ExtendedPlayerFire implements IEEPSyncable {
 
     public void setOnFireTick(int onFireTick) {
         fireTick = onFireTick;
-        Castlevania.getNetChannel().sendToAll(new PacketIEEPSync(this));
+        Castlevania.getNetChannel()
+            .sendToAll(new PacketIEEPSync(this));
     }
 
     public void onFireTick() {

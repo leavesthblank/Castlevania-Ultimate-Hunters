@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
 
 public class Vec {
+
     public double x;
     public double y;
     public double z;
@@ -55,11 +56,17 @@ public class Vec {
     }
 
     public Vec rotate_yaw(double a) {
-        return new Vec(this.x * Math.cos(a) - this.z * Math.sin(a), this.y, this.x * Math.sin(a) + this.z * Math.cos(a));
+        return new Vec(
+            this.x * Math.cos(a) - this.z * Math.sin(a),
+            this.y,
+            this.x * Math.sin(a) + this.z * Math.cos(a));
     }
 
     public Vec rotate_pitch(double pitch) {
-        return new Vec(this.x, this.y * Math.cos(pitch) + this.z * Math.sin(pitch), this.z * Math.cos(pitch) - this.y * Math.sin(pitch));
+        return new Vec(
+            this.x,
+            this.y * Math.cos(pitch) + this.z * Math.sin(pitch),
+            this.z * Math.cos(pitch) - this.y * Math.sin(pitch));
     }
 
     public Vec mult(double changefactor) {

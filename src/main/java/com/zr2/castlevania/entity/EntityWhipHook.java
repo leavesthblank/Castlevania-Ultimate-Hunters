@@ -1,16 +1,16 @@
 package com.zr2.castlevania.entity;
 
-import com.zr2.castlevania.item.ItemWhip;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import com.zr2.castlevania.item.ItemWhip;
+
 public class EntityWhipHook extends EntityArrow {
 
     public float radiusSq = Float.NaN;
     public double taut;
-
 
     public EntityWhipHook(World p_i1753_1_) {
         super(p_i1753_1_);
@@ -24,7 +24,8 @@ public class EntityWhipHook extends EntityArrow {
         this.posX = player.posX;
         this.posY = player.posY;
         this.posZ = player.posZ;
-        Vec3 vector = player.getLookVec().normalize();
+        Vec3 vector = player.getLookVec()
+            .normalize();
         this.motionX = vector.xCoord * 10;
         this.motionY = vector.yCoord * 10;
         this.motionZ = vector.zCoord * 10;
@@ -38,8 +39,10 @@ public class EntityWhipHook extends EntityArrow {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!(this.shootingEntity instanceof EntityPlayer) || this.shootingEntity.getDistanceSqToEntity(this) > 1024 ||
-                ((EntityPlayer) this.shootingEntity).getCurrentEquippedItem() == null || !(((EntityPlayer) this.shootingEntity).getCurrentEquippedItem().getItem() instanceof ItemWhip)) {
+        if (!(this.shootingEntity instanceof EntityPlayer) || this.shootingEntity.getDistanceSqToEntity(this) > 1024
+            || ((EntityPlayer) this.shootingEntity).getCurrentEquippedItem() == null
+            || !(((EntityPlayer) this.shootingEntity).getCurrentEquippedItem()
+                .getItem() instanceof ItemWhip)) {
             this.setDead();
             return;
         }

@@ -6,6 +6,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 public interface IEEPSyncable extends IExtendedEntityProperties {
 
     public Entity getIEEPOwner();
+
     public String id();
 
 }

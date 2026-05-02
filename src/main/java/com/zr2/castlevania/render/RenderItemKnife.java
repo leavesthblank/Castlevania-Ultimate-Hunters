@@ -1,7 +1,7 @@
 package com.zr2.castlevania.render;
 
-import com.zr2.castlevania.entity.EntityHolyCross;
-import com.zr2.castlevania.entity.EntityKnife;
+import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -16,9 +16,11 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
 
-import java.util.Random;
+import com.zr2.castlevania.entity.EntityHolyCross;
+import com.zr2.castlevania.entity.EntityKnife;
 
 public class RenderItemKnife extends Render {
 
@@ -34,7 +36,8 @@ public class RenderItemKnife extends Render {
         this.shadowOpaque = 0.75F;
     }
 
-    public void doRender(Entity entity, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_9_, float ok) {
+    public void doRender(Entity entity, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_9_,
+        float ok) {
         if (itemstack.getItem() != null) {
             this.bindEntityTexture(entity);
             TextureUtil.func_152777_a(false, false, 1.0F);
@@ -51,7 +54,8 @@ public class RenderItemKnife extends Render {
             int l;
             float f8;
             float f5;
-            if (itemstack.getItem().requiresMultipleRenderPasses()) {
+            if (itemstack.getItem()
+                .requiresMultipleRenderPasses()) {
                 if (renderInFrame) {
                     GL11.glScalef(0.5128205F, 0.5128205F, 0.5128205F);
                     GL11.glTranslatef(0.0F, -0.05F, 0.0F);
@@ -59,12 +63,14 @@ public class RenderItemKnife extends Render {
                     GL11.glScalef(0.5F, 0.5F, 0.5F);
                 }
 
-
-                for (int j = 0; j < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++j) {
+                for (int j = 0; j < itemstack.getItem()
+                    .getRenderPasses(itemstack.getItemDamage()); ++j) {
                     this.random.setSeed(187L);
-                    IIcon iicon1 = itemstack.getItem().getIcon(itemstack, j);
+                    IIcon iicon1 = itemstack.getItem()
+                        .getIcon(itemstack, j);
                     if (this.renderWithColor) {
-                        k = itemstack.getItem().getColorFromItemStack(itemstack, j);
+                        k = itemstack.getItem()
+                            .getColorFromItemStack(itemstack, j);
                         f5 = (float) (k >> 16 & 255) / 255.0F;
                         f6 = (float) (k >> 8 & 255) / 255.0F;
                         f7 = (float) (k & 255) / 255.0F;
@@ -84,7 +90,8 @@ public class RenderItemKnife extends Render {
 
                 IIcon iicon = itemstack.getIconIndex();
                 if (this.renderWithColor) {
-                    l = itemstack.getItem().getColorFromItemStack(itemstack, 0);
+                    l = itemstack.getItem()
+                        .getColorFromItemStack(itemstack, 0);
                     f8 = (float) (l >> 16 & 255) / 255.0F;
                     f5 = (float) (l >> 8 & 255) / 255.0F;
                     f6 = (float) (l & 255) / 255.0F;
@@ -106,12 +113,14 @@ public class RenderItemKnife extends Render {
         return this.renderManager.renderEngine.getResourceLocation(itemstack.getItemSpriteNumber());
     }
 
-
-    private void renderDroppedItem(Entity entity, IIcon p_77020_2_, int p_77020_3_, float p_77020_4_, float p_77020_5_, float p_77020_6_, float p_77020_7_) {
+    private void renderDroppedItem(Entity entity, IIcon p_77020_2_, int p_77020_3_, float p_77020_4_, float p_77020_5_,
+        float p_77020_6_, float p_77020_7_) {
         Tessellator tessellator = Tessellator.instance;
         if (p_77020_2_ == null) {
-            TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-            ResourceLocation resourcelocation = texturemanager.getResourceLocation(this.itemstack.getItemSpriteNumber());
+            TextureManager texturemanager = Minecraft.getMinecraft()
+                .getTextureManager();
+            ResourceLocation resourcelocation = texturemanager
+                .getResourceLocation(this.itemstack.getItemSpriteNumber());
             p_77020_2_ = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
@@ -129,11 +138,12 @@ public class RenderItemKnife extends Render {
                 GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
             } else {
                 if (entity instanceof EntityHolyCross) {
-                    //GL11.glRotatef(90, 0,0, 1);
+                    // GL11.glRotatef(90, 0,0, 1);
                     GL11.glRotatef(90, 1, 0, 0);
                     GL11.glRotatef(entity.ticksExisted * 8, 0, 0, 1);
                 } else {
-                    Vec3 vector = Vec3.createVectorHelper((float) -entity.motionX, (float) -entity.motionY, (float) -entity.motionZ);
+                    Vec3 vector = Vec3
+                        .createVectorHelper((float) -entity.motionX, (float) -entity.motionY, (float) -entity.motionZ);
                     vector = vector.normalize();
                     GL11.glTranslated(vector.xCoord * 0.5, vector.yCoord * 0.5, vector.zCoord * 0.5);
                     GL11.glRotatef(entity.rotationYaw + 270, 0, 1, 0);
@@ -171,7 +181,15 @@ public class RenderItemKnife extends Render {
                 }
 
                 GL11.glColor4f(p_77020_5_, p_77020_6_, p_77020_7_, 1.0F);
-                ItemRenderer.renderItemIn2D(tessellator, f15, f4, f14, f5, ((IIcon) p_77020_2_).getIconWidth(), ((IIcon) p_77020_2_).getIconHeight(), f9);
+                ItemRenderer.renderItemIn2D(
+                    tessellator,
+                    f15,
+                    f4,
+                    f14,
+                    f5,
+                    ((IIcon) p_77020_2_).getIconWidth(),
+                    ((IIcon) p_77020_2_).getIconHeight(),
+                    f9);
             }
 
             GL11.glPopMatrix();
@@ -192,10 +210,12 @@ public class RenderItemKnife extends Render {
                 GL11.glColor4f(p_77020_5_, p_77020_6_, p_77020_7_, 1.0F);
                 tessellator.startDrawingQuads();
                 tessellator.setNormal(0.0F, 1.0F, 0.0F);
-                tessellator.addVertexWithUV((double) (0.0F - f7), (double) (0.0F - f8), 0.0D, (double) f14, (double) f5);
+                tessellator
+                    .addVertexWithUV((double) (0.0F - f7), (double) (0.0F - f8), 0.0D, (double) f14, (double) f5);
                 tessellator.addVertexWithUV((double) (f6 - f7), (double) (0.0F - f8), 0.0D, (double) f15, (double) f5);
                 tessellator.addVertexWithUV((double) (f6 - f7), (double) (1.0F - f8), 0.0D, (double) f15, (double) f4);
-                tessellator.addVertexWithUV((double) (0.0F - f7), (double) (1.0F - f8), 0.0D, (double) f14, (double) f4);
+                tessellator
+                    .addVertexWithUV((double) (0.0F - f7), (double) (1.0F - f8), 0.0D, (double) f14, (double) f4);
                 tessellator.draw();
                 GL11.glPopMatrix();
             }
@@ -224,4 +244,3 @@ public class RenderItemKnife extends Render {
     }
 
 }
-

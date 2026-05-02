@@ -1,7 +1,7 @@
 package com.zr2.castlevania.block;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.tile.TileBlockCandle;
+import java.util.Random;
+
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.item.EntityItem;
@@ -10,10 +10,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import java.util.Random;
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.tile.TileBlockCandle;
 
 public abstract class AbstractBlockCandle extends BlockTorch implements ITileEntityProvider {
-
 
     protected AbstractBlockCandle(String name) {
         this.setBlockUnbreakable();

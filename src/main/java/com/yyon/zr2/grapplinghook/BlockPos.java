@@ -3,6 +3,7 @@ package com.yyon.zr2.grapplinghook;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class BlockPos {
+
     public int x;
     public int y;
     public int z;
@@ -49,10 +50,10 @@ public class BlockPos {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
-                // if deriving: appendSuper(super.hashCode()).
-                        append(this.x).
-                        append(this.y).
-                        append(this.z).
-                        toHashCode();
+        // if deriving: appendSuper(super.hashCode()).
+            append(this.x)
+            .append(this.y)
+            .append(this.z)
+            .toHashCode();
     }
 }

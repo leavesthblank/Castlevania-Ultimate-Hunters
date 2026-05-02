@@ -1,9 +1,10 @@
 package com.zr2.castlevania.item;
 
-import com.zr2.castlevania.entity.EntityKnife;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.entity.EntityKnife;
 
 public class ItemKnife extends BasicItem {
 

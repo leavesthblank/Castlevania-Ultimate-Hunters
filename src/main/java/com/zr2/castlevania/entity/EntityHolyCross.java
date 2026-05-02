@@ -42,7 +42,11 @@ public class EntityHolyCross extends EntityThrowable {
             double distance = this.shootingEntity.getDistanceSqToEntity(this);
             if (isReturning) {
                 Vec3 vector = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
-                vector = vector.subtract(Vec3.createVectorHelper(this.shootingEntity.posX, this.shootingEntity.posY, this.shootingEntity.posZ));
+                vector = vector.subtract(
+                    Vec3.createVectorHelper(
+                        this.shootingEntity.posX,
+                        this.shootingEntity.posY,
+                        this.shootingEntity.posZ));
                 vector = vector.normalize();
                 this.motionX = vector.xCoord * 0.5;
                 this.motionY = vector.yCoord * 0.5;
@@ -50,7 +54,7 @@ public class EntityHolyCross extends EntityThrowable {
 
                 if (distance < 1) {
                     this.setDead();
-                    //this.onCollideWithPlayer((EntityPlayer) this.shootingEntity);
+                    // this.onCollideWithPlayer((EntityPlayer) this.shootingEntity);
                 }
             } else if (distance > 64) {
                 isReturning = true;
@@ -70,18 +74,19 @@ public class EntityHolyCross extends EntityThrowable {
 
     @Override
     public void onCollideWithPlayer(EntityPlayer player) {
-//        if (!this.worldObj.isRemote && this.isReturning && this.shootingEntity == player) {
-//            boolean var2 = this.canBePickedUp == 1 || this.canBePickedUp == 2 && player.capabilities.isCreativeMode;
-//            if (this.canBePickedUp == 1 && !player.inventory.addItemStackToInventory(new ItemStack(Castlevania.HOLY_CROSS))) {
-//                var2 = false;
-//            }
-//
-//            if (var2) {
-//                this.playSound("random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-//                player.onItemPickup(this, 1);
-//                this.setDead();
-//            }
-//        }
+        // if (!this.worldObj.isRemote && this.isReturning && this.shootingEntity == player) {
+        // boolean var2 = this.canBePickedUp == 1 || this.canBePickedUp == 2 && player.capabilities.isCreativeMode;
+        // if (this.canBePickedUp == 1 && !player.inventory.addItemStackToInventory(new
+        // ItemStack(Castlevania.HOLY_CROSS))) {
+        // var2 = false;
+        // }
+        //
+        // if (var2) {
+        // this.playSound("random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        // player.onItemPickup(this, 1);
+        // this.setDead();
+        // }
+        // }
     }
 
     @Override
@@ -90,7 +95,6 @@ public class EntityHolyCross extends EntityThrowable {
         this.canBePickedUp = nbtTagCompound.getInteger("pickup");
         this.isReturning = nbtTagCompound.getBoolean("returning");
     }
-
 
     @Override
     public void writeEntityToNBT(NBTTagCompound nbtTagCompound) {

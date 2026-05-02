@@ -1,10 +1,30 @@
 package com.yyon.zr2.grapplinghook;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
+
 import com.yyon.zr2.grapplinghook.controllers.AirfrictionController;
 import com.yyon.zr2.grapplinghook.controllers.GrappleController;
 import com.yyon.zr2.grapplinghook.controllers.HookControl;
 import com.yyon.zr2.grapplinghook.entities.GrappleArrow;
-import com.yyon.zr2.grapplinghook.network.*;
+import com.yyon.zr2.grapplinghook.network.GrappleAttachMessage;
+import com.yyon.zr2.grapplinghook.network.GrappleAttachPosMessage;
+import com.yyon.zr2.grapplinghook.network.GrappleClickMessage;
+import com.yyon.zr2.grapplinghook.network.GrappleEndMessage;
+import com.yyon.zr2.grapplinghook.network.MultiHookMessage;
+import com.yyon.zr2.grapplinghook.network.PlayerMovementMessage;
+import com.yyon.zr2.grapplinghook.network.ToolConfigMessage;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -18,41 +38,25 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
 
 /*
  * This file is part of GrappleMod.
-
-    GrappleMod is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    GrappleMod is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with GrappleMod.  If not, see <http://www.gnu.org/licenses/>.
+ * GrappleMod is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * GrappleMod is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with GrappleMod. If not, see <http://www.gnu.org/licenses/>.
  */
 
 @Mod(modid = GrappleMod.MODID, version = GrappleMod.VERSION)
 public class GrappleMod {
 
-    public GrappleMod() {
-    }
+    public GrappleMod() {}
 
     public static final String MODID = "grapplemod-castlevania";
 
@@ -64,7 +68,8 @@ public class GrappleMod {
 
     public static SimpleNetworkWrapper network;
 
-    public static HashMap<Integer, GrappleController> controllers = new HashMap<Integer, GrappleController>(); // client side
+    public static HashMap<Integer, GrappleController> controllers = new HashMap<Integer, GrappleController>(); // client
+                                                                                                               // side
     public static HashMap<BlockPos, GrappleController> controllerpos = new HashMap<BlockPos, GrappleController>();
     public static HashSet<Integer> attached = new HashSet<Integer>(); // server side
 
@@ -75,28 +80,26 @@ public class GrappleMod {
     public static int AIRID = controllerid++;
 
     public static int REPELCONFIGS = 0;
-//	public static int REPELSPEED = REPELCONFIGS++;
+    // public static int REPELSPEED = REPELCONFIGS++;
 
     public static int grapplingLength = 0;
     public static boolean anyblocks = true;
     public static ArrayList<Block> grapplingblocks;
     public static boolean removeblocks = false;
 
-    @SidedProxy(clientSide = "com.yyon.zr2.grapplinghook.ClientProxyClass", serverSide = "com.yyon.zr2.grapplinghook.ServerProxyClass")
+    @SidedProxy(
+        clientSide = "com.yyon.zr2.grapplinghook.ClientProxyClass",
+        serverSide = "com.yyon.zr2.grapplinghook.ServerProxyClass")
     public static CommonProxyClass proxy;
 
     @EventHandler
-    public void load(FMLInitializationEvent event) {
-    }
+    public void load(FMLInitializationEvent event) {}
 
-    public void registerRenderers() {
-    }
+    public void registerRenderers() {}
 
-    public void generateNether(World world, Random random, int chunkX, int chunkZ) {
-    }
+    public void generateNether(World world, Random random, int chunkX, int chunkZ) {}
 
-    public void generateSurface(World world, Random random, int chunkX, int chunkZ) {
-    }
+    public void generateSurface(World world, Random random, int chunkX, int chunkZ) {}
 
     public int addFuel(ItemStack fuel) {
         return 0;
@@ -104,22 +107,40 @@ public class GrappleMod {
 
     @EventHandler
     public void serverLoad(FMLServerStartingEvent event) {
-        event.getServer().worldServerForDimension(0).getGameRules().addGameRule("grapplingLength", "0");
-        event.getServer().worldServerForDimension(0).getGameRules().addGameRule("grapplingBlocks", "any");
-        event.getServer().worldServerForDimension(0).getGameRules().addGameRule("grapplingNonBlocks", "none");
+        event.getServer()
+            .worldServerForDimension(0)
+            .getGameRules()
+            .addGameRule("grapplingLength", "0");
+        event.getServer()
+            .worldServerForDimension(0)
+            .getGameRules()
+            .addGameRule("grapplingBlocks", "any");
+        event.getServer()
+            .worldServerForDimension(0)
+            .getGameRules()
+            .addGameRule("grapplingNonBlocks", "none");
     }
 
     public static void updateMaxLen(World world) {
-        String s = MinecraftServer.getServer().worldServerForDimension(0).getGameRules().getGameRuleStringValue("grapplingLength");
+        String s = MinecraftServer.getServer()
+            .worldServerForDimension(0)
+            .getGameRules()
+            .getGameRuleStringValue("grapplingLength");
         if (!s.equals("")) {
             GrappleMod.grapplingLength = Integer.parseInt(s);
         }
     }
 
     public static void updateGrapplingBlocks(World world) {
-        String s = MinecraftServer.getServer().worldServerForDimension(0).getGameRules().getGameRuleStringValue("grapplingBlocks");
+        String s = MinecraftServer.getServer()
+            .worldServerForDimension(0)
+            .getGameRules()
+            .getGameRuleStringValue("grapplingBlocks");
         if (s.equals("any") || s.equals("")) {
-            s = MinecraftServer.getServer().worldServerForDimension(0).getGameRules().getGameRuleStringValue("grapplingNonBlocks");
+            s = MinecraftServer.getServer()
+                .worldServerForDimension(0)
+                .getGameRules()
+                .getGameRuleStringValue("grapplingNonBlocks");
             if (s.equals("none") || s.equals("")) {
                 anyblocks = true;
             } else {
@@ -167,7 +188,8 @@ public class GrappleMod {
         network.registerMessage(GrappleAttachMessage.Handler.class, GrappleAttachMessage.class, id++, Side.CLIENT);
         network.registerMessage(GrappleEndMessage.Handler.class, GrappleEndMessage.class, id++, Side.SERVER);
         network.registerMessage(GrappleClickMessage.Handler.class, GrappleClickMessage.class, id++, Side.CLIENT);
-        network.registerMessage(GrappleAttachPosMessage.Handler.class, GrappleAttachPosMessage.class, id++, Side.CLIENT);
+        network
+            .registerMessage(GrappleAttachPosMessage.Handler.class, GrappleAttachPosMessage.class, id++, Side.CLIENT);
         network.registerMessage(MultiHookMessage.Handler.class, MultiHookMessage.class, id++, Side.SERVER);
         network.registerMessage(ToolConfigMessage.Handler.class, ToolConfigMessage.class, id++, Side.SERVER);
     }
@@ -190,7 +212,8 @@ public class GrappleMod {
 
     public static void registerController(int entityId, GrappleController controller) {
         if (controllers.containsKey(entityId)) {
-            controllers.get(entityId).unattach();
+            controllers.get(entityId)
+                .unattach();
         }
 
         controllers.put(entityId, controller);
@@ -200,8 +223,7 @@ public class GrappleMod {
         controllers.remove(entityId);
     }
 
-    public static void receiveGrappleClick(int id,
-                                           boolean leftclick) {
+    public static void receiveGrappleClick(int id, boolean leftclick) {
         GrappleController controller = controllers.get(id);
         if (controller != null) {
             controller.receiveGrappleClick(leftclick);
@@ -228,7 +250,8 @@ public class GrappleMod {
         }
     }
 
-    public static GrappleController createControl(int id, int arrowid, int entityid, World world, Vec pos, int maxlen, BlockPos blockpos) {
+    public static GrappleController createControl(int id, int arrowid, int entityid, World world, Vec pos, int maxlen,
+        BlockPos blockpos) {
 
         GrappleArrow arrow = null;
         Entity arrowentity = world.getEntityByID(arrowid);
@@ -267,10 +290,8 @@ public class GrappleMod {
 
     public static void receiveGrappleEnd(int id, World world, int arrowid) {
         if (GrappleMod.attached.contains(id)) {
-            GrappleMod.attached.remove(new Integer
-                    (id));
-        } else {
-        }
+            GrappleMod.attached.remove(new Integer(id));
+        } else {}
 
         if (arrowid != -1) {
             Entity grapple = world.getEntityByID(arrowid);
@@ -288,10 +309,7 @@ public class GrappleMod {
 
     }
 
-    public static void receiveMultihookMessage(int id, World w, boolean sneaking) {
-    }
+    public static void receiveMultihookMessage(int id, World w, boolean sneaking) {}
 
-
-    public static void receiveToolConfigMessage(int id, World w) {
-    }
+    public static void receiveToolConfigMessage(int id, World w) {}
 }

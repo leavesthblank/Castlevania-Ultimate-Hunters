@@ -1,13 +1,15 @@
 package com.zr2.castlevania.item;
 
-import com.google.common.collect.Multimap;
-import com.yyon.zr2.grapplinghook.items.GrappleBow;
-import com.zr2.castlevania.Castlevania;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
+
+import com.google.common.collect.Multimap;
+import com.yyon.zr2.grapplinghook.items.GrappleBow;
+import com.zr2.castlevania.Castlevania;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemWhip extends GrappleBow {
 
@@ -32,10 +34,13 @@ public class ItemWhip extends GrappleBow {
     public boolean shouldRotateAroundWhenRendering() {
         return false;
     }
+
     @Override
     public Multimap getAttributeModifiers(ItemStack stack) {
         Multimap multimap = super.getAttributeModifiers(stack);
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", (double) this.damage, 0));
+        multimap.put(
+            SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
+            new AttributeModifier(field_111210_e, "Tool modifier", (double) this.damage, 0));
         return multimap;
     }
 }

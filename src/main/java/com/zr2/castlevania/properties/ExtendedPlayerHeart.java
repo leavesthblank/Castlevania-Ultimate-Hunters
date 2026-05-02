@@ -1,12 +1,13 @@
 package com.zr2.castlevania.properties;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.network.packet.PacketIEEPSync;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.network.packet.PacketIEEPSync;
 
 public class ExtendedPlayerHeart implements IEEPSyncable {
 
@@ -36,8 +37,7 @@ public class ExtendedPlayerHeart implements IEEPSyncable {
     }
 
     @Override
-    public void init(Entity entity, World world) {
-    }
+    public void init(Entity entity, World world) {}
 
     public int getMaxHeart() {
         return this.maxHeart;
@@ -49,7 +49,8 @@ public class ExtendedPlayerHeart implements IEEPSyncable {
 
     public void setCurrentHeart(int i) {
         currentHeart = i;
-        Castlevania.getNetChannel().sendToAll(new PacketIEEPSync(this));
+        Castlevania.getNetChannel()
+            .sendToAll(new PacketIEEPSync(this));
     }
 
     public void replenishHeart(int amount) {

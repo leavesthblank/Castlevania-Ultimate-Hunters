@@ -1,6 +1,5 @@
 package com.zr2.castlevania.block;
 
-import com.zr2.castlevania.tile.TileBlockFakeWall;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -9,6 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.tile.TileBlockFakeWall;
 
 public class BlockFakeWall extends Block implements ITileEntityProvider {
 
@@ -21,7 +22,8 @@ public class BlockFakeWall extends Block implements ITileEntityProvider {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int v0, float v1, float v2, float v3) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int v0, float v1, float v2,
+        float v3) {
         world.markBlockForUpdate(x, y, z);
         return false;
     }
@@ -35,7 +37,8 @@ public class BlockFakeWall extends Block implements ITileEntityProvider {
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_,
+        int p_149668_4_) {
         return EMPTY_AABB;
     }
 
@@ -70,6 +73,6 @@ public class BlockFakeWall extends Block implements ITileEntityProvider {
     }
 
     @Override
-    protected void dropBlockAsItem(World p_149642_1_, int p_149642_2_, int p_149642_3_, int p_149642_4_, ItemStack p_149642_5_) {
-    }
+    protected void dropBlockAsItem(World p_149642_1_, int p_149642_2_, int p_149642_3_, int p_149642_4_,
+        ItemStack p_149642_5_) {}
 }

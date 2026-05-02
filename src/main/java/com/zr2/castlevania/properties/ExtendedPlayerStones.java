@@ -1,12 +1,13 @@
 package com.zr2.castlevania.properties;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.item.ItemStone;
-import com.zr2.castlevania.network.packet.PacketIEEPSync;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.item.ItemStone;
+import com.zr2.castlevania.network.packet.PacketIEEPSync;
 
 public class ExtendedPlayerStones implements IEEPSyncable {
 
@@ -40,12 +41,14 @@ public class ExtendedPlayerStones implements IEEPSyncable {
 
     public void setActive(ItemStone itemStone) {
         abilityStones |= (1 << itemStone.getIndex());
-        Castlevania.getNetChannel().sendToAll(new PacketIEEPSync(this));
+        Castlevania.getNetChannel()
+            .sendToAll(new PacketIEEPSync(this));
     }
 
     public void setInactive(ItemStone itemStone) {
         abilityStones &= ~(1 << itemStone.getIndex());
-        Castlevania.getNetChannel().sendToAll(new PacketIEEPSync(this));
+        Castlevania.getNetChannel()
+            .sendToAll(new PacketIEEPSync(this));
     }
 
     @Override

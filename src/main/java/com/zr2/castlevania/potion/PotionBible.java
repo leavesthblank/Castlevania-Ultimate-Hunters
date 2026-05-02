@@ -1,13 +1,15 @@
 package com.zr2.castlevania.potion;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+
 import org.lwjgl.opengl.GL11;
+
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.proxy.ClientProxy;
 
 public class PotionBible extends Potion {
 

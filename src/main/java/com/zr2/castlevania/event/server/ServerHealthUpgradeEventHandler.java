@@ -1,10 +1,7 @@
 package com.zr2.castlevania.event.server;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import com.zr2.castlevania.Castlevania;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
+import java.util.UUID;
+
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
@@ -12,11 +9,16 @@ import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import java.util.UUID;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import com.zr2.castlevania.Castlevania;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class ServerHealthUpgradeEventHandler {
 
-    private static final UUID ATTR_UUID = UUID.fromString("b3c8867b-88d4-4635-9765-a5aa93573a1f"); //Thanks DuckDuckGo
+    private static final UUID ATTR_UUID = UUID.fromString("b3c8867b-88d4-4635-9765-a5aa93573a1f"); // Thanks DuckDuckGo
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -38,15 +40,18 @@ public class ServerHealthUpgradeEventHandler {
                 }
                 if (updateAmount) {
                     Multimap multimap = HashMultimap.create();
-                    multimap.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(),
-                            new AttributeModifier(ATTR_UUID, "Health Upgrade", i, 0));
+                    multimap.put(
+                        SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(),
+                        new AttributeModifier(ATTR_UUID, "Health Upgrade", i, 0));
                     attributeMap.removeAttributeModifiers(multimap);
-                    event.player.getAttributeMap().applyAttributeModifiers(multimap);
+                    event.player.getAttributeMap()
+                        .applyAttributeModifiers(multimap);
                 }
             } else {
                 Multimap multimap = HashMultimap.create();
-                multimap.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(),
-                        new AttributeModifier(ATTR_UUID, "Health Upgrade", i, 0));
+                multimap.put(
+                    SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(),
+                    new AttributeModifier(ATTR_UUID, "Health Upgrade", i, 0));
                 attributeMap.removeAttributeModifiers(multimap);
             }
         }

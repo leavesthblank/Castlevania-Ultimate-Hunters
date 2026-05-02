@@ -11,11 +11,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
 public class RenderItemWhip implements IItemRenderer {
 
-    private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
+    private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation(
+        "textures/misc/enchanted_item_glint.png");
 
     @Override
     public boolean handleRenderType(ItemStack itemStack, ItemRenderType itemRenderType) {
@@ -23,7 +25,8 @@ public class RenderItemWhip implements IItemRenderer {
     }
 
     @Override
-    public boolean shouldUseRenderHelper(ItemRenderType itemRenderType, ItemStack itemStack, ItemRendererHelper itemRendererHelper) {
+    public boolean shouldUseRenderHelper(ItemRenderType itemRenderType, ItemStack itemStack,
+        ItemRendererHelper itemRendererHelper) {
         return false;
     }
 
@@ -34,7 +37,8 @@ public class RenderItemWhip implements IItemRenderer {
 
     public void renderItem(EntityLivingBase p_78443_1_, ItemStack p_78443_2_, int p_78443_3_) {
         GL11.glPushMatrix();
-        TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+        TextureManager texturemanager = Minecraft.getMinecraft()
+            .getTextureManager();
         {
             IIcon iicon = p_78443_1_.getItemIcon(p_78443_2_, p_78443_3_);
             if (iicon == null) {
@@ -51,7 +55,8 @@ public class RenderItemWhip implements IItemRenderer {
             float f3 = iicon.getMaxV();
             GL11.glTranslatef(1F, 0, 0);
             GL11.glRotatef(90, 0, 0, 1);
-            ItemRenderer.renderItemIn2D(tessellator, f1, f2, f, f3, iicon.getIconWidth(), iicon.getIconHeight(), 0.0625F);
+            ItemRenderer
+                .renderItemIn2D(tessellator, f1, f2, f, f3, iicon.getIconWidth(), iicon.getIconHeight(), 0.0625F);
             if (p_78443_2_.hasEffect(p_78443_3_)) {
                 GL11.glDepthFunc(514);
                 GL11.glDisable(2896);

@@ -1,33 +1,41 @@
 package com.zr2.castlevania.event.client;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.entity.EntitySerpentStone;
-import com.zr2.castlevania.event.StoneAbilityEvent;
-import com.zr2.castlevania.network.packet.PacketUseStoneAbility;
-import com.zr2.castlevania.render.RenderSerpentStone;
-import com.zr2.castlevania.render.model.ModelPlayerSerpent;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import java.util.List;
+
+import javax.vecmath.Vector2d;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderLivingEvent;
+
 import org.lwjgl.input.Keyboard;
 
-import javax.vecmath.Vector2d;
-import java.util.List;
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.entity.EntitySerpentStone;
+import com.zr2.castlevania.event.StoneAbilityEvent;
+import com.zr2.castlevania.network.packet.PacketUseStoneAbility;
+import com.zr2.castlevania.render.RenderSerpentStone;
+import com.zr2.castlevania.render.model.ModelPlayerSerpent;
 
-public class ClientStoneAbilityEventHandler extends StoneAbilityEvent implements IMessageHandler<PacketUseStoneAbility, IMessage> {
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+
+public class ClientStoneAbilityEventHandler extends StoneAbilityEvent
+    implements IMessageHandler<PacketUseStoneAbility, IMessage> {
 
     private static final Vector2d[] DIRECTIONS = new Vector2d[4];
 
     private static final KeyBinding KEY_DASH = new KeyBinding("key.dash", Keyboard.KEY_F, "key.categories.movement");
-    private static final KeyBinding KEY_HIGH_JUMP = new KeyBinding("key.high_jump", Keyboard.KEY_B, "key.categories.movement");
+    private static final KeyBinding KEY_HIGH_JUMP = new KeyBinding(
+        "key.high_jump",
+        Keyboard.KEY_B,
+        "key.categories.movement");
 
     private int dashCooldown = 0;
     private boolean canDoubleJump = true;
@@ -74,9 +82,10 @@ public class ClientStoneAbilityEventHandler extends StoneAbilityEvent implements
 
                         }
                     } /*
-                    else if (player.motionY < -0.2) {
-                        player.motionY = -0.2;
-                    }*/
+                       * else if (player.motionY < -0.2) {
+                       * player.motionY = -0.2;
+                       * }
+                       */
                 }
                 break;
             case LEAP:
@@ -93,18 +102,19 @@ public class ClientStoneAbilityEventHandler extends StoneAbilityEvent implements
                 if (dashCooldown > 0) {
                     dashCooldown--;
                 } else if (isKeyPressed(KEY_DASH)) {
-//                    Vec3 vector = player.getLookVec();
-//                    player.motionX = vector.xCoord * 1.5;
-//                    if (player.onGround) {
-//                        player.motionY += 0.2;
-//                    }
-//                    player.motionZ = vector.zCoord * 1.5;
-//                    dashCooldown = 10;
-                    Castlevania.getNetChannel().sendToServer(new PacketUseStoneAbility(AbilityStone.DASH));
+                    // Vec3 vector = player.getLookVec();
+                    // player.motionX = vector.xCoord * 1.5;
+                    // if (player.onGround) {
+                    // player.motionY += 0.2;
+                    // }
+                    // player.motionZ = vector.zCoord * 1.5;
+                    // dashCooldown = 10;
+                    Castlevania.getNetChannel()
+                        .sendToServer(new PacketUseStoneAbility(AbilityStone.DASH));
                 }
                 break;
             case GRYPHON:
-                if (isKeyPressed(KEY_HIGH_JUMP)/* && player.onGround*/) {
+                if (isKeyPressed(KEY_HIGH_JUMP)/* && player.onGround */) {
                     player.motionY = 1.5;
                 }
                 break;
@@ -116,7 +126,8 @@ public class ClientStoneAbilityEventHandler extends StoneAbilityEvent implements
 
     @SubscribeEvent
     public void onRender(RenderLivingEvent.Pre event) {
-        if (event.entity.ridingEntity instanceof EntitySerpentStone && !(event.renderer instanceof RenderSerpentStone)) {
+        if (event.entity.ridingEntity instanceof EntitySerpentStone
+            && !(event.renderer instanceof RenderSerpentStone)) {
             event.setCanceled(true);
         }
     }
@@ -131,7 +142,8 @@ public class ClientStoneAbilityEventHandler extends StoneAbilityEvent implements
     }
 
     public static float orientCameraHook() {
-        if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0 && Minecraft.getMinecraft().thePlayer.ridingEntity instanceof EntitySerpentStone) {
+        if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0
+            && Minecraft.getMinecraft().thePlayer.ridingEntity instanceof EntitySerpentStone) {
             return 1.8F;
         }
         return 0;

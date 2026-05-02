@@ -1,9 +1,10 @@
 package com.zr2.castlevania.item;
 
-import com.zr2.castlevania.entity.EntityHolyWater;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.entity.EntityHolyWater;
 
 public class ItemHolyWater extends BasicItem {
 
@@ -11,7 +12,6 @@ public class ItemHolyWater extends BasicItem {
         super("holy_water");
         this.setMaxStackSize(1);
     }
-
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {

@@ -1,16 +1,21 @@
 package com.zr2.castlevania.render;
 
-import com.zr2.castlevania.Castlevania;
-import com.zr2.castlevania.entity.EntityHolyFire;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
+import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.entity.EntityHolyFire;
+
 public class RenderHolyFire extends Render {
-    private static final ResourceLocation FIRE_TEXTURES = new ResourceLocation(Castlevania.MODID, "textures/entity/holy_fire.png");
+
+    private static final ResourceLocation FIRE_TEXTURES = new ResourceLocation(
+        Castlevania.MODID,
+        "textures/entity/holy_fire.png");
     private static RenderManager staticRenderManager;
 
     @Override
@@ -54,7 +59,7 @@ public class RenderHolyFire extends Render {
         float var9 = 0.25F;
         GL11.glRotatef(180.0F - staticRenderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-staticRenderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-        //GL11.glScalef(2F, 3.23F, 2F);
+        // GL11.glScalef(2F, 3.23F, 2F);
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         tessellator.addVertexWithUV((double) (0.0F - var8), (double) (0.0F - var9), 0.0D, (double) minU, (double) maxV);

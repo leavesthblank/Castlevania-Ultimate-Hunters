@@ -1,11 +1,12 @@
 package com.zr2.castlevania.entity;
 
-import com.zr2.castlevania.Castlevania;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
+import com.zr2.castlevania.Castlevania;
 
 public class EntityKnife extends AbstractEntityProjectile {
 

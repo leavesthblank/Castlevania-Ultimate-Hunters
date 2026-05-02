@@ -1,13 +1,5 @@
 package com.yyon.zr2.grapplinghook;
 
-import com.yyon.zr2.grapplinghook.controllers.GrappleController;
-import com.yyon.zr2.grapplinghook.entities.GrappleArrow;
-import com.yyon.zr2.grapplinghook.items.GrappleBow;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -19,7 +11,18 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
+import com.yyon.zr2.grapplinghook.controllers.GrappleController;
+import com.yyon.zr2.grapplinghook.entities.GrappleArrow;
+import com.yyon.zr2.grapplinghook.items.GrappleBow;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 public class CommonProxyClass {
+
     public enum keys {
         keyBindUseItem,
         keyBindForward,
@@ -40,15 +43,15 @@ public class CommonProxyClass {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
-        FMLCommonHandler.instance().bus().register(this);
+        FMLCommonHandler.instance()
+            .bus()
+            .register(this);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    public void sendplayermovementmessage(GrappleArrow grappleArrow, int playerid, int arrowid) {
-    }
+    public void sendplayermovementmessage(GrappleArrow grappleArrow, int playerid, int arrowid) {}
 
-    public void getplayermovement(GrappleController control, int playerid) {
-    }
+    public void getplayermovement(GrappleController control, int playerid) {}
 
     @SubscribeEvent
     public void onLivingFallEvent(LivingFallEvent event) {
@@ -57,12 +60,9 @@ public class CommonProxyClass {
         }
     }
 
+    public void resetlaunchertime(int playerid) {}
 
-    public void resetlaunchertime(int playerid) {
-    }
-
-    public void launchplayer(EntityPlayer player) {
-    }
+    public void launchplayer(EntityPlayer player) {}
 
     public boolean isSneaking(Entity entity) {
         return entity.isSneaking();
@@ -85,9 +85,7 @@ public class CommonProxyClass {
         this.blockbreak(event);
     }
 
-
-    public void blockbreak(BreakEvent event) {
-    }
+    public void blockbreak(BreakEvent event) {}
 
     @SubscribeEvent
     public void onLivingAttack(LivingAttackEvent event) {
@@ -98,26 +96,25 @@ public class CommonProxyClass {
             }
         }
     }
-    
+
     /*
-    @SubscribeEvent
-    public void onLivingHurt(LivingHurtEvent event) {
-    	if (event.source == DamageSource.inWall) {
-    		if (GrappleMod.attached.contains(event.entity.getEntityId())) {
-    			event.setCanceled(true);
-    			return;
-    		}
-    	}
-    }
-    */
+     * @SubscribeEvent
+     * public void onLivingHurt(LivingHurtEvent event) {
+     * if (event.source == DamageSource.inWall) {
+     * if (GrappleMod.attached.contains(event.entity.getEntityId())) {
+     * event.setCanceled(true);
+     * return;
+     * }
+     * }
+     * }
+     */
 
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {
         this.handleDeath(event.entity);
     }
 
-    public void handleDeath(Entity entity) {
-    }
+    public void handleDeath(Entity entity) {}
 
     public String getkeyname(CommonProxyClass.keys keyenum) {
         return null;

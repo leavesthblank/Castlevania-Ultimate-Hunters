@@ -1,6 +1,7 @@
 package com.zr2.castlevania.network.packet;
 
 import com.zr2.castlevania.event.StoneAbilityEvent;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
 
@@ -12,8 +13,7 @@ public class PacketUseStoneAbility implements IMessage {
         this.abilityStone = abilityStone;
     }
 
-    public PacketUseStoneAbility() {
-    }
+    public PacketUseStoneAbility() {}
 
     @Override
     public void fromBytes(ByteBuf buf) {

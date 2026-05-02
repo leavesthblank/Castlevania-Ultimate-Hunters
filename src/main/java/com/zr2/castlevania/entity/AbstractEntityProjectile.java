@@ -52,7 +52,16 @@ public abstract class AbstractEntityProjectile extends EntityArrow {
                             }
 
                             if (d0 >= p_72830_1_.minY) {
-                                block.onBlockActivated(this.worldObj, k1, l1, i2, (EntityPlayer) this.shootingEntity, 0, 0, 0, 0);
+                                block.onBlockActivated(
+                                    this.worldObj,
+                                    k1,
+                                    l1,
+                                    i2,
+                                    (EntityPlayer) this.shootingEntity,
+                                    0,
+                                    0,
+                                    0,
+                                    0);
                                 this.leverFilpCooldown = 20;
                             }
                         }
@@ -64,19 +73,20 @@ public abstract class AbstractEntityProjectile extends EntityArrow {
 
     @Override
     public void onCollideWithPlayer(EntityPlayer p_onCollideWithPlayer_1_) {
-//        if (!this.worldObj.isRemote && this.inGround() && this.arrowShake <= 0) {
-//            boolean var2 = this.canBePickedUp == 1 || this.canBePickedUp == 2 && p_onCollideWithPlayer_1_.capabilities.isCreativeMode;
-//            if (this.canBePickedUp == 1 && !p_onCollideWithPlayer_1_.inventory.addItemStackToInventory(itemForm())) {
-//                var2 = false;
-//            }
-//
-//            if (var2) {
-//                this.playSound("random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-//                p_onCollideWithPlayer_1_.onItemPickup(this, 1);
-//                this.setDead();
-//            }
-//
-//        }
+        // if (!this.worldObj.isRemote && this.inGround() && this.arrowShake <= 0) {
+        // boolean var2 = this.canBePickedUp == 1 || this.canBePickedUp == 2 &&
+        // p_onCollideWithPlayer_1_.capabilities.isCreativeMode;
+        // if (this.canBePickedUp == 1 && !p_onCollideWithPlayer_1_.inventory.addItemStackToInventory(itemForm())) {
+        // var2 = false;
+        // }
+        //
+        // if (var2) {
+        // this.playSound("random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        // p_onCollideWithPlayer_1_.onItemPickup(this, 1);
+        // this.setDead();
+        // }
+        //
+        // }
     }
 
     public boolean inGround() {

@@ -1,6 +1,5 @@
 package com.zr2.castlevania.render.tile;
 
-import com.zr2.castlevania.tile.TileBlockFakeWall;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.BlockDragonEgg;
@@ -11,7 +10,10 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
+import com.zr2.castlevania.tile.TileBlockFakeWall;
 
 public class RenderTileFakeWall extends TileEntitySpecialRenderer {
 
@@ -35,7 +37,10 @@ public class RenderTileFakeWall extends TileEntitySpecialRenderer {
                 this.renderBlocks.blockAccess = var10;
                 var15 = Tessellator.instance;
                 var15.startDrawingQuads();
-                var15.setTranslation((double) ((float) (-var12) - 0.5F), (double) ((float) (-var13) - 0.5F), (double) ((float) (-var14) - 0.5F));
+                var15.setTranslation(
+                    (double) ((float) (-var12) - 0.5F),
+                    (double) ((float) (-var13) - 0.5F),
+                    (double) ((float) (-var14) - 0.5F));
                 this.renderBlocks.renderBlockAnvilMetadata((BlockAnvil) var11, var12, var13, var14, 0);
                 var15.setTranslation(0.0D, 0.0D, 0.0D);
                 var15.draw();
@@ -43,7 +48,10 @@ public class RenderTileFakeWall extends TileEntitySpecialRenderer {
                 this.renderBlocks.blockAccess = var10;
                 var15 = Tessellator.instance;
                 var15.startDrawingQuads();
-                var15.setTranslation((double) ((float) (-var12) - 0.5F), (double) ((float) (-var13) - 0.5F), (double) ((float) (-var14) - 0.5F));
+                var15.setTranslation(
+                    (double) ((float) (-var12) - 0.5F),
+                    (double) ((float) (-var13) - 0.5F),
+                    (double) ((float) (-var14) - 0.5F));
                 this.renderBlocks.renderBlockDragonEgg((BlockDragonEgg) var11, var12, var13, var14);
                 var15.setTranslation(0.0D, 0.0D, 0.0D);
                 var15.draw();
@@ -56,6 +64,5 @@ public class RenderTileFakeWall extends TileEntitySpecialRenderer {
             GL11.glPopMatrix();
         }
     }
-
 
 }

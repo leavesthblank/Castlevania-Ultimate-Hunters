@@ -1,29 +1,26 @@
 package com.yyon.zr2.grapplinghook.network;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
-//* // 1.8 Compatability
-
+// * // 1.8 Compatability
 
 /*
  * This file is part of GrappleMod.
-
-    GrappleMod is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    GrappleMod is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with GrappleMod.  If not, see <http://www.gnu.org/licenses/>.
+ * GrappleMod is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * GrappleMod is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with GrappleMod. If not, see <http://www.gnu.org/licenses/>.
  */
 
 public class PlayerMovementMessage implements IMessage {
@@ -36,8 +33,7 @@ public class PlayerMovementMessage implements IMessage {
     public double my;
     public double mz;
 
-    public PlayerMovementMessage() {
-    }
+    public PlayerMovementMessage() {}
 
     public PlayerMovementMessage(int entityId, double x, double y, double z, double mx, double my, double mz) {
         this.entityId = entityId;
@@ -79,6 +75,7 @@ public class PlayerMovementMessage implements IMessage {
     public static class Handler implements IMessageHandler<PlayerMovementMessage, IMessage> {
 
         public class runner implements Runnable {
+
             PlayerMovementMessage message;
             MessageContext ctx;
 

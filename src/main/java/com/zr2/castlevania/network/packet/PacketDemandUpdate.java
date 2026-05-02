@@ -9,8 +9,7 @@ public class PacketDemandUpdate implements IMessage {
     private int y;
     private int z;
 
-    public PacketDemandUpdate() {
-    }
+    public PacketDemandUpdate() {}
 
     public PacketDemandUpdate(int x, int y, int z) {
         this.x = x;

@@ -7,8 +7,7 @@ public class PacketTimeStopStage implements IMessage {
 
     private int stage;
 
-    public PacketTimeStopStage() {
-    }
+    public PacketTimeStopStage() {}
 
     public PacketTimeStopStage(int stage) {
         if (stage > Byte.MAX_VALUE || stage < Byte.MIN_VALUE) {
