@@ -20,7 +20,6 @@ public class ItemWhip extends GrappleBow {
         this.setTextureName(Castlevania.MODID + ":whip_" + name);
         this.setCreativeTab(Castlevania.CASTLEVANIA_TAB);
         this.setUnlocalizedName("whip_" + name);
-        this.setMaxDamage(64);
         this.setMaxStackSize(1);
         this.damage = damage;
     }
@@ -42,5 +41,9 @@ public class ItemWhip extends GrappleBow {
             SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
             new AttributeModifier(field_111210_e, "Tool modifier", (double) this.damage, 0));
         return multimap;
+    }
+
+    public float getAttackDamage() {
+        return damage;
     }
 }

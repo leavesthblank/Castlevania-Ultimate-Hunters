@@ -1,12 +1,15 @@
 package com.yyon.zr2.grapplinghook.entities;
 
 import java.util.List;
+import java.util.Objects;
 
+import com.zr2.castlevania.item.ItemWhip;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
@@ -131,9 +134,7 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
                     double d = Vec.positionvec(this)
                         .sub(Vec.positionvec(this.shootingEntity))
                         .length();
-                    if (d > GrappleMod.grapplingLength) {
-                        return true;
-                    }
+                    return d > GrappleMod.grapplingLength;
                 }
             }
         }
@@ -176,20 +177,24 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
         if (!this.worldObj.isRemote) {
             if (this.shootingEntityID != 0) {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
-                    // hit entity
                     Entity entityhit = movingobjectposition.entityHit;
                     if (entityhit == this.shootingEntity) {
                         return;
                     }
+                    if(this.shootingEntity.isSneaking()) {
+                        // hit entity
+                        Vec playerpos = Vec.positionvec(this.shootingEntity);
+                        Vec entitypos = Vec.positionvec(entityhit);
+                        Vec yank = playerpos.sub(entitypos)
+                            .mult(0.4);
+                        entityhit.addVelocity(yank.x, Math.min(yank.y, 2), yank.z);
 
-                    Vec playerpos = Vec.positionvec(this.shootingEntity);
-                    Vec entitypos = Vec.positionvec(entityhit);
-                    Vec yank = playerpos.sub(entitypos)
-                        .mult(0.4);
-                    entityhit.addVelocity(yank.x, Math.min(yank.y, 2), yank.z);
-
-                    this.removeServer();
-                    return;
+                        this.removeServer();
+                        return;
+                    }else{
+                        this.removeServer();
+                        return;
+                    }
                 }
 
                 BlockPos blockpos = null;

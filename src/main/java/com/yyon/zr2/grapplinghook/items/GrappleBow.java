@@ -3,6 +3,7 @@ package com.yyon.zr2.grapplinghook.items;
 import java.util.HashMap;
 import java.util.List;
 
+import com.zr2.castlevania.entity.EntityWhipHook;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -43,8 +44,6 @@ public class GrappleBow extends Item {
         maxStackSize = 1;
         setFull3D();
         setUnlocalizedName("grapplinghook");
-
-        this.setMaxDamage(500);
 
         setCreativeTab(CreativeTabs.tabTransport);
 
@@ -101,11 +100,8 @@ public class GrappleBow extends Item {
             float f = 2.0F;
             if (entityarrow == null) {
                 entityarrow = this.createarrow(stack, worldIn, entityLiving, righthand);
-                // entityarrow.setHeadingFromThrower(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw,
-                // 0.0F, entityarrow.getVelocity(), 0.0F);
                 setArrow(entityLiving, stack, entityarrow);
 
-                stack.damageItem(1, entityLiving);
                 worldIn.playSoundAtEntity(
                     entityLiving,
                     "random.bow",
@@ -132,6 +128,9 @@ public class GrappleBow extends Item {
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer entityLiving) {
         if (!worldIn.isRemote) {
             this.dorightclick(stack, worldIn, entityLiving, true);
+            EntityWhipHook whipHook = new EntityWhipHook(entityLiving);
+            whipHook.shoot(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0.0F, 2.0F, 0.0F);
+            worldIn.spawnEntityInWorld(whipHook);
         }
         return stack;
     }
