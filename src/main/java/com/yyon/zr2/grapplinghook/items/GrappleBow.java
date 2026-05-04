@@ -128,9 +128,11 @@ public class GrappleBow extends Item {
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer entityLiving) {
         if (!worldIn.isRemote) {
             this.dorightclick(stack, worldIn, entityLiving, true);
-            EntityWhipHook whipHook = new EntityWhipHook(entityLiving);
-            whipHook.shoot(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0.0F, 2.0F, 0.0F);
-            worldIn.spawnEntityInWorld(whipHook);
+            if(!entityLiving.isSneaking()) {
+                EntityWhipHook whipHook = new EntityWhipHook(entityLiving);
+                whipHook.shoot(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0.0F, 2.0F, 0.0F);
+                worldIn.spawnEntityInWorld(whipHook);
+            }
         }
         return stack;
     }

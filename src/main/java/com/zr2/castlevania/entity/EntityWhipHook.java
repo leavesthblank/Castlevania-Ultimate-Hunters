@@ -24,7 +24,7 @@ public class EntityWhipHook extends EntityArrow {
         this(player.worldObj);
         this.shootingEntity = player;
         this.posX = player.posX;
-        this.posY = player.posY;
+        this.posY = player.posY + player.getEyeHeight();
         this.posZ = player.posZ;
         Vec3 vector = player.getLookVec()
             .normalize();
@@ -64,7 +64,6 @@ public class EntityWhipHook extends EntityArrow {
         this.setThrowableHeading(f, f1, f2, velocity, inaccuracy);
         this.motionX += entityThrower.motionX;
         this.motionZ += entityThrower.motionZ;
-        this.posY += entityThrower.getEyeHeight();
 
         if (!entityThrower.onGround) {
             this.motionY += entityThrower.motionY;
