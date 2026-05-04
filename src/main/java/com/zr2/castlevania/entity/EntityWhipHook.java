@@ -64,6 +64,7 @@ public class EntityWhipHook extends EntityArrow {
         this.setThrowableHeading(f, f1, f2, velocity, inaccuracy);
         this.motionX += entityThrower.motionX;
         this.motionZ += entityThrower.motionZ;
+        this.posY += entityThrower.getEyeHeight();
 
         if (!entityThrower.onGround) {
             this.motionY += entityThrower.motionY;
