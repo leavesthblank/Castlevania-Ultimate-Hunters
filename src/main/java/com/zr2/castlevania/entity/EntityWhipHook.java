@@ -37,7 +37,7 @@ public class EntityWhipHook extends EntityArrow {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        this.motionY += 0.05f;//hardcoded to compensate gravity of whip hook...
+        this.motionY += 0.05f;// hardcoded to compensate gravity of whip hook...
         if (!(this.shootingEntity instanceof EntityPlayer) || this.shootingEntity.getDistanceSqToEntity(this) > 1024
             || ((EntityPlayer) this.shootingEntity).getCurrentEquippedItem() == null
             || !(((EntityPlayer) this.shootingEntity).getCurrentEquippedItem()
@@ -57,7 +57,7 @@ public class EntityWhipHook extends EntityArrow {
     }
 
     public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset,
-                      float velocity, float inaccuracy) {
+        float velocity, float inaccuracy) {
         float f = -MathHelper.sin(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
         float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * 0.017453292F);
         float f2 = MathHelper.cos(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);

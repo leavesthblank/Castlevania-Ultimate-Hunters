@@ -1,15 +1,12 @@
 package com.yyon.zr2.grapplinghook.entities;
 
 import java.util.List;
-import java.util.Objects;
 
-import com.zr2.castlevania.item.ItemWhip;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
@@ -181,7 +178,7 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
                     if (entityhit == this.shootingEntity) {
                         return;
                     }
-                    if(this.shootingEntity.isSneaking()) {
+                    if (this.shootingEntity.isSneaking()) {
                         // hit entity
                         Vec playerpos = Vec.positionvec(this.shootingEntity);
                         Vec entitypos = Vec.positionvec(entityhit);
@@ -191,7 +188,7 @@ public class GrappleArrow extends EntityThrowable implements IEntityAdditionalSp
 
                         this.removeServer();
                         return;
-                    }else{
+                    } else {
                         this.removeServer();
                         return;
                     }

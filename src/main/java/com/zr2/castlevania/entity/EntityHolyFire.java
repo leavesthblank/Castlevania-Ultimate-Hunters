@@ -12,7 +12,7 @@ public class EntityHolyFire extends Entity {
 
     public EntityHolyFire(World world) {
         super(world);
-        this.setSize(1F, 1F);
+        this.setSize(1F, 2F);
     }
 
     @Override
@@ -50,8 +50,6 @@ public class EntityHolyFire extends Entity {
                 }
             }
         }
-        this.motionY = -10000; // Force land on ground
-
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.yyon.zr2.grapplinghook.items;
 import java.util.HashMap;
 import java.util.List;
 
-import com.zr2.castlevania.entity.EntityWhipHook;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,6 +17,7 @@ import com.yyon.zr2.grapplinghook.CommonProxyClass;
 import com.yyon.zr2.grapplinghook.GrappleMod;
 import com.yyon.zr2.grapplinghook.entities.GrappleArrow;
 import com.yyon.zr2.grapplinghook.network.GrappleClickMessage;
+import com.zr2.castlevania.entity.EntityWhipHook;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 
@@ -128,7 +128,7 @@ public class GrappleBow extends Item {
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer entityLiving) {
         if (!worldIn.isRemote) {
             this.dorightclick(stack, worldIn, entityLiving, true);
-            if(!entityLiving.isSneaking()) {
+            if (!entityLiving.isSneaking()) {
                 EntityWhipHook whipHook = new EntityWhipHook(entityLiving);
                 whipHook.shoot(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0.0F, 2.0F, 0.0F);
                 worldIn.spawnEntityInWorld(whipHook);

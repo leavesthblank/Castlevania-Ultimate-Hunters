@@ -28,7 +28,7 @@ public class RenderHolyFire extends Render {
         }
         if (tick >= 0) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) v, (float) v1, (float) v2);
+            GL11.glTranslatef((float) v, (float) v1 + 1, (float) v2);
             GL11.glEnable(32826);
             GL11.glScalef(1.5F, 1.5F, 1.5F);
             staticRenderManager.renderEngine.bindTexture(FIRE_TEXTURES);

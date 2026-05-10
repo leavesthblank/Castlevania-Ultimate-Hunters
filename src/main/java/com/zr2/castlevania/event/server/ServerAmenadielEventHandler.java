@@ -85,6 +85,7 @@ public class ServerAmenadielEventHandler {
 
     private static boolean consumeHeart(EntityPlayer player, int i) {
         if (!player.worldObj.isRemote) {
+            if (player.capabilities.isCreativeMode) return true;
             ExtendedPlayerHeart playerHeart = (ExtendedPlayerHeart) player
                 .getExtendedProperties(ExtendedPlayerHeart.EXT_PROP_NAME);
             if (i > playerHeart.getCurrentHeart()) {

@@ -46,7 +46,7 @@ public class EntityHolyWater extends EntityThrowable {
                     EntityHolyFire holyFire = new EntityHolyFire(this.worldObj);
                     holyFire.setDormant(x * 5);
                     Vector2d dir = mutiply(x, y);
-                    holyFire.posY = this.posY;
+                    holyFire.posY = this.posY - 1;
                     holyFire.posX = dir.x + this.posX;
                     holyFire.posZ = dir.y + this.posZ;
                     this.worldObj.spawnEntityInWorld(holyFire);
