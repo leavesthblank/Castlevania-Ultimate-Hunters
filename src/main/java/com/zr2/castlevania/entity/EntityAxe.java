@@ -13,7 +13,7 @@ public class EntityAxe extends AbstractEntityProjectile {
     }
 
     public EntityAxe(World p_i1756_1_, EntityLivingBase p_i1756_2_) {
-        super(p_i1756_1_, p_i1756_2_, 0.416666666667F);
+        super(p_i1756_1_, p_i1756_2_, 1.6F);
     }
 
     @Override

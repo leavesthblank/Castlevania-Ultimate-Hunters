@@ -27,11 +27,9 @@ public class ServerAmenadielEventHandler {
             healItem(isPlayerUsing(event.player, Castlevania.STOPWATCH));
             if (isPlayerUsing(event.player, Castlevania.BIBLE) != null) {
                 AxisAlignedBB aabb = event.player.boundingBox.expand(1.8, 0, 1.8);
-                for (Object o : event.player.worldObj.getEntitiesWithinAABBExcludingEntity(event.player, aabb)) {
-                    Entity entity = (Entity) o;
-                    entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(event.player, event.player), 6);
-                    if (entity instanceof EntityLivingBase) {
-                        ((EntityLivingBase) entity).knockBack(event.player, 0.5F, 0.5, 0.5);
+                for (Entity o : event.player.worldObj.getEntitiesWithinAABBExcludingEntity(event.player, aabb)) {
+                    if (o instanceof EntityLivingBase && !o.isEntityInvulnerable()) {
+                        o.attackEntityFrom(DamageSource.causeIndirectMagicDamage(event.player, event.player), 6);
                     }
                 }
             }

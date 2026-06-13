@@ -55,8 +55,8 @@ public class Castlevania {
     public static final Item WHIP_SAVAGE_SILVER = new ItemWhip("savage_silver", 8);
     public static final Item WHIP_HOLY_FLAIL = new ItemWhip("holy_flail", 12);
     public static final Item WHIP_MORNING_STAR = new ItemWhip("morning_star", 16);
-    public static final Item KNIFE = new ItemKnife();
-    public static final Item AXE = new ItemAxe();
+    public static final Item KNIFE = new ItemKnife(3);
+    public static final Item AXE = new ItemAxe(6);
     public static final Item HOLY_WATER = new ItemHolyWater();
     public static final Item HOLY_CROSS = new ItemHolyCross();
     public static final Item BIBLE = new BasicItem("bible").setMaxDamage(100)

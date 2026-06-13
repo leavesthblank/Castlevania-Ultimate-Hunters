@@ -2,6 +2,7 @@ package com.zr2.castlevania.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -37,16 +38,18 @@ public class EntityHolyFire extends Entity {
         if (ticksExisted - this.getDormant() > 30) {
             this.setDead();
         } else if (!this.worldObj.isRemote && this.ticksExisted > this.getDormant()) {
-            for (Object o : this.worldObj.getEntitiesWithinAABB(
+            for (EntityLivingBase o : this.worldObj.getEntitiesWithinAABB(
                 EntityLivingBase.class,
                 this.boundingBox.copy()
                     .offset(this.posX - 1, this.posY, this.posZ))) {
-                EntityLivingBase entity = (EntityLivingBase) o;
-                ExtendedPlayerFire extendedPlayerFire = (ExtendedPlayerFire) entity
+                ExtendedPlayerFire extendedPlayerFire = (ExtendedPlayerFire) o
                     .getExtendedProperties(ExtendedPlayerFire.EXT_PROP_NAME);
                 if (extendedPlayerFire.getOnFireTick() <= 0) {
                     extendedPlayerFire.setOnFireTick(60);
-                    entity.attackEntityFrom(DamageSource.inFire, 6);
+                    if (!(o instanceof EntityPlayer) && !o.isEntityInvulnerable()) {
+                        o.attackEntityFrom(DamageSource.inFire, 6);
+                        o.attackEntityFrom(DamageSource.causeIndirectMagicDamage(o, o), 6);
+                    }
                 }
             }
         }

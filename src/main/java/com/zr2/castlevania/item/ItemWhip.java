@@ -43,7 +43,4 @@ public class ItemWhip extends GrappleBow {
         return multimap;
     }
 
-    public float getAttackDamage() {
-        return damage;
-    }
 }

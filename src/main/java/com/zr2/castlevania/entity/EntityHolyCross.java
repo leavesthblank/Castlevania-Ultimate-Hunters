@@ -15,6 +15,7 @@ public class EntityHolyCross extends EntityThrowable {
     private EntityLivingBase shootingEntity = null;
     private int canBePickedUp;
     private boolean isReturning = false;
+    private int stopTick = 5;
 
     public EntityHolyCross(World p_i1753_1_) {
         super(p_i1753_1_);
@@ -45,13 +46,23 @@ public class EntityHolyCross extends EntityThrowable {
                 vector = vector.subtract(
                     Vec3.createVectorHelper(
                         this.shootingEntity.posX,
-                        this.shootingEntity.posY,
+                        this.shootingEntity.posY + this.shootingEntity.getEyeHeight(),
                         this.shootingEntity.posZ));
                 vector = vector.normalize();
-                this.motionX = vector.xCoord * 0.5;
-                this.motionY = vector.yCoord * 0.5;
-                this.motionZ = vector.zCoord * 0.5;
-
+                if (stopTick > 0) {
+                    this.motionX = 0;
+                    this.motionY = 0;
+                    this.motionZ = 0;
+                    stopTick--;
+                } else if (distance >= 36) {
+                    this.motionX = vector.xCoord * 0.125;
+                    this.motionY = vector.yCoord * 0.125;
+                    this.motionZ = vector.zCoord * 0.125;
+                } else {
+                    this.motionX = vector.xCoord * 0.5;
+                    this.motionY = vector.yCoord * 0.5;
+                    this.motionZ = vector.zCoord * 0.5;
+                }
                 if (distance < 1) {
                     this.setDead();
                     // this.onCollideWithPlayer((EntityPlayer) this.shootingEntity);
@@ -94,6 +105,7 @@ public class EntityHolyCross extends EntityThrowable {
         super.readEntityFromNBT(nbtTagCompound);
         this.canBePickedUp = nbtTagCompound.getInteger("pickup");
         this.isReturning = nbtTagCompound.getBoolean("returning");
+        this.stopTick = nbtTagCompound.getInteger("stoptick");
     }
 
     @Override
@@ -101,6 +113,7 @@ public class EntityHolyCross extends EntityThrowable {
         super.writeEntityToNBT(nbtTagCompound);
         nbtTagCompound.setInteger("pickup", this.canBePickedUp);
         nbtTagCompound.setBoolean("returning", this.isReturning);
+        nbtTagCompound.setInteger("stoptick", this.stopTick);
     }
 
     @Override

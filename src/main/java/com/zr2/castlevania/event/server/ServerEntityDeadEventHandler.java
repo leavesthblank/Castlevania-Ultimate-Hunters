@@ -1,5 +1,6 @@
 package com.zr2.castlevania.event.server;
 
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.item.ItemStack;
@@ -17,11 +18,17 @@ public class ServerEntityDeadEventHandler {
     @SubscribeEvent
     public void onEntityDeath(LivingDropsEvent event) {
         if (!event.entityLiving.worldObj.isRemote) {
-            if (event.entityLiving instanceof IMob) {
-                if (Math.random() <= 0.25) {
+            if (event.entityLiving instanceof IMob && !(event.entityLiving instanceof IBossDisplayData)) {
+                if (event.entityLiving.getMaxHealth() >= 70) {
                     addDrop(event, new ItemStack(Castlevania.BIG_HEART));
-                } else if (Math.random() > 0.25) {
-                    addDrop(event, new ItemStack(Castlevania.SMALL_HEART));
+                } else if (event.entityLiving.getMaxHealth() >= 40) {
+                    if (Math.random() <= 0.5) {
+                        addDrop(event, new ItemStack(Castlevania.BIG_HEART));
+                    }
+                } else {
+                    if (Math.random() <= 0.05) {
+                        addDrop(event, new ItemStack(Castlevania.SMALL_HEART));
+                    }
                 }
             }
         }

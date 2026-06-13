@@ -27,9 +27,9 @@ public class EntityKnife extends AbstractEntityProjectile {
 
     @Override
     public void onUpdate() {
-        this.motionX = this.dataWatcher.getWatchableObjectFloat(17);
-        this.motionY = this.dataWatcher.getWatchableObjectFloat(18);
-        this.motionZ = this.dataWatcher.getWatchableObjectFloat(19);
+        this.motionX = 10 * this.dataWatcher.getWatchableObjectFloat(17);
+        this.motionY = 10 * this.dataWatcher.getWatchableObjectFloat(18);
+        this.motionZ = 10 * this.dataWatcher.getWatchableObjectFloat(19);
         super.onUpdate();
     }
 

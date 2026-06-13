@@ -11,7 +11,8 @@ import net.minecraft.world.World;
 
 public class EntityHolyWater extends EntityThrowable {
 
-    protected Vector2d fireDirection = new Vector2d(0, 0);
+    protected Vector2d fireDirection;
+    protected Vector2d zeroVector = new Vector2d(0, 0);
 
     public EntityHolyWater(World world) {
         super(world);
@@ -21,7 +22,6 @@ public class EntityHolyWater extends EntityThrowable {
         super(world, livingBase);
         Vec3 vector = livingBase.getLookVec();
         this.fireDirection = new Vector2d(vector.xCoord, vector.zCoord);
-        this.fireDirection.normalize();
     }
 
     protected float getGravityVelocity() {
@@ -41,15 +41,30 @@ public class EntityHolyWater extends EntityThrowable {
         this.worldObj
             .playAuxSFX(2002, (int) Math.round(this.posX), (int) Math.round(this.posY), (int) Math.round(this.posZ), 0);
         if (!worldObj.isRemote) {
-            for (int x = 0; x < 6; x++) {
-                for (int y = -1; y < 2; y++) {
-                    EntityHolyFire holyFire = new EntityHolyFire(this.worldObj);
-                    holyFire.setDormant(x * 5);
-                    Vector2d dir = mutiply(x, y);
-                    holyFire.posY = this.posY - 1;
-                    holyFire.posX = dir.x + this.posX;
-                    holyFire.posZ = dir.y + this.posZ;
-                    this.worldObj.spawnEntityInWorld(holyFire);
+            if (fireDirection.equals(zeroVector)) {
+                for (int x = -2; x < 3; x++) {
+                    for (int y = -2; y < 3; y++) {
+                        if (Math.abs(x) + Math.abs(y) == 4) continue;
+                        EntityHolyFire holyFire = new EntityHolyFire(this.worldObj);
+                        holyFire.setDormant(10);
+                        holyFire.posY = this.posY - 1;
+                        holyFire.posX = x + this.posX;
+                        holyFire.posZ = y + this.posZ;
+                        this.worldObj.spawnEntityInWorld(holyFire);
+                    }
+                }
+            } else {
+                this.fireDirection.normalize();
+                for (int x = 0; x < 6; x++) {
+                    for (int y = -1; y < 2; y++) {
+                        EntityHolyFire holyFire = new EntityHolyFire(this.worldObj);
+                        holyFire.setDormant(x * 5);
+                        Vector2d dir = mutiply(x, y);
+                        holyFire.posY = this.posY - 1;
+                        holyFire.posX = dir.x + this.posX;
+                        holyFire.posZ = dir.y + this.posZ;
+                        this.worldObj.spawnEntityInWorld(holyFire);
+                    }
                 }
             }
         }
