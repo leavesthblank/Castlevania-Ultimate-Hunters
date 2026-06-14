@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import com.zr2.castlevania.Castlevania;
+import com.zr2.castlevania.config.ModConfig;
 import com.zr2.castlevania.properties.ExtendedPlayerHeart;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -25,10 +26,26 @@ public class ClientHeartOverlayEventHandler {
 
         RenderHelper.enableGUIStandardItemLighting();
         renderItem.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, heart, 0, 0);
-        mc.fontRenderer.drawStringWithShadow(player.getCurrentHeart() + " / " + player.getMaxHeart(), 16, 4, 0xFFFFFF);
+        String text = getString(player);
+        mc.fontRenderer.drawStringWithShadow(text, 16, 4, 0xFFFFFF);
         RenderHelper.disableStandardItemLighting();
         this.mc.getTextureManager()
             .bindTexture(Gui.icons); // Fix hunger bar
+    }
+
+    private static String getString(ExtendedPlayerHeart player) {
+        String text;
+        // Priority: infinite max-cap display, then infinite consumption display, else normal
+        if (ModConfig.enableInfiniteHeartLimit && ModConfig.infiniteHeartsInSurvival) {
+            text = "∞ / ∞";
+        } else if (ModConfig.enableInfiniteHeartLimit) {
+            text = player.getCurrentHeart() + " / ∞"; // show 0 / ∞ when max is infinite
+        } else if (ModConfig.infiniteHeartsInSurvival) {
+            text = "∞ / " + player.getMaxHeart(); // show ∞ / max when infinite hearts in survival
+        } else {
+            text = player.getCurrentHeart() + " / " + player.getMaxHeart();
+        }
+        return text;
     }
 
 }

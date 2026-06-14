@@ -63,6 +63,8 @@ public class CommonProxy implements IModLoadingProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        // Load mod configuration first
+        com.zr2.castlevania.config.ModConfig.load(event);
         registerItemsAndBlocks();
         GameRegistry.registerTileEntity(TileBlockCandle.class, "candle");
         GameRegistry.registerTileEntity(TileBlockFakeWall.class, "fake_wall");
@@ -132,6 +134,7 @@ public class CommonProxy implements IModLoadingProxy {
 
     private void registerEvents() {
         MinecraftForge.EVENT_BUS.register(new ServerKnifeHurtEventEventHandler());
+        MinecraftForge.EVENT_BUS.register(new com.zr2.castlevania.event.server.ServerUseUpgradeEventHandler());
         Object handler = new ServerAmenadielEventHandler();
         FMLCommonHandler.instance()
             .bus()

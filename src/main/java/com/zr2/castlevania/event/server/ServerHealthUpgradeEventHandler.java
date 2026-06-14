@@ -7,11 +7,9 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.zr2.castlevania.Castlevania;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -59,10 +57,10 @@ public class ServerHealthUpgradeEventHandler {
 
     private float calculateUpgrade(EntityPlayer player) {
         float i = 0;
-        for (ItemStack itemStack : player.inventory.mainInventory) {
-            if (itemStack != null && itemStack.getItem() == Castlevania.HEALTH_UPGRADE) {
-                i += 2 * itemStack.stackSize;
-            }
+        com.zr2.castlevania.properties.ExtendedPlayerHeart ext = (com.zr2.castlevania.properties.ExtendedPlayerHeart) player
+            .getExtendedProperties(com.zr2.castlevania.properties.ExtendedPlayerHeart.EXT_PROP_NAME);
+        if (ext != null) {
+            i = 2 * ext.getAppliedHealthUpgrades();
         }
         return i;
     }
