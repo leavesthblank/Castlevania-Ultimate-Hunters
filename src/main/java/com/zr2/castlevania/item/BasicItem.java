@@ -28,12 +28,12 @@ public class BasicItem extends Item {
             int applied = ext != null ? ext.getAppliedHeartUpgrades() : 0;
             String cap = ModConfig.enableInfiniteHeartLimit ? "∞" : String.valueOf(ModConfig.heartUpgradeCap);
             list.add("Applied: " + applied);
-            list.add("Cap: " + cap);
+            if (ModConfig.enableUpgradeCap) list.add("Cap: " + cap);
         } else if (stack.getItem() == Castlevania.HEALTH_UPGRADE) {
             int applied = ext != null ? ext.getAppliedHealthUpgrades() : 0;
             String cap = ModConfig.enableInfiniteHeartLimit ? "∞" : String.valueOf(ModConfig.healthUpgradeCap);
             list.add("Applied: " + applied);
-            list.add("Cap: " + cap);
+            if (ModConfig.enableUpgradeCap) list.add("Cap: " + cap);
         }
     }
 
